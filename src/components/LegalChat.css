@@ -1,0 +1,75 @@
+.legal-chat {
+  width: 100%;
+  max-width: 420px;
+  height: 550px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+}
+
+.chat-header {
+  background: #1e3a8a;
+  color: white;
+  padding: 12px;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 12px 12px 0 0;
+}
+
+.chat-body {
+  flex: 1;
+  padding: 12px;
+  overflow-y: auto;
+  background: #f8fafc;
+}
+
+.chat-message {
+  max-width: 85%;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.chat-message.user {
+  background: #2563eb;
+  color: white;
+  margin-left: auto;
+}
+
+.chat-message.assistant {
+  background: #e5e7eb;
+  color: #111827;
+  margin-right: auto;
+}
+
+.chat-input {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  outline: none;
+}
+
+.chat-input button {
+  margin-left: 8px;
+  padding: 8px 14px;
+  background: #1e40af;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.chat-input button:disabled {
+  background: #9ca3af;
+}
