@@ -1,4 +1,5 @@
-﻿import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
     HiChartPie,
     HiCollection,
@@ -15,9 +16,18 @@ import {
 import { useAuth } from '../../contexts/AuthContext';
 import logoImage from '../../assets/Logo_Hieuluat2-removebg-preview.png';
 
-const DashboardSidebar = ({ activeTab, setActiveTab, role, unreadMessagesCount = 0 }) => {
+const DashboardSidebar = ({ activeTab, setActiveTab, role, unreadMessagesCount = 0, isMobileOpen, onClose }) => {
     const { logout } = useAuth();
     const navigate = useNavigate();
+    const [scrolled, setScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 80);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     const lawyerMenuItems = [
         { key: 'overview', label: 'Tổng quan', icon: HiChartPie },
@@ -56,22 +66,33 @@ const DashboardSidebar = ({ activeTab, setActiveTab, role, unreadMessagesCount =
     const menuItems = role === 'lawyer' ? lawyerMenuItems : (role === 'admin' ? adminMenuItems : clientMenuItems);
     const profilePath = role === 'lawyer' ? '/lawyer/profile' : (role === 'admin' ? '/admin/profile' : '/client/profile');
 
+    const topOffset = scrolled ? '64px' : '116px';
+
     return (
         <aside
-            className="fixed left-0 z-40 w-64 overflow-hidden border-r border-slate-800/40 bg-[linear-gradient(180deg,#061f3f_0%,#0a2950_60%,#071b35_100%)] text-slate-100 shadow-[20px_0_60px_-35px_rgba(15,23,42,0.45)] transition-all duration-300"
-            style={{ top: '140px', height: 'calc(100vh - 140px)' }}
+            className={`fixed left-0 z-50 w-72 lg:w-64 h-full overflow-hidden border-r border-slate-800/40 bg-[linear-gradient(180deg,#061f3f_0%,#0a2950_60%,#071b35_100%)] text-slate-100 shadow-[20px_0_60px_-35px_rgba(15,23,42,0.45)] transition-all duration-300 transform lg:translate-x-0 ${isMobileOpen ? 'translate-x-0' : '-translate-x-full'}`}
+            style={{ 
+                top: typeof window !== 'undefined' && window.innerWidth < 1024 ? '0' : topOffset,
+                height: typeof window !== 'undefined' && window.innerWidth < 1024 ? '100%' : `calc(100vh - ${topOffset})`
+            }}
             aria-label="Sidebar"
         >
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(241,177,54,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(59,130,246,0.08),transparent_28%)]" />
 
             <div className="relative flex h-full flex-col overflow-y-auto px-4 py-8 pb-40">
-                {/* Minimalist Header */}
-                <div className="mb-8 px-4">
-                    <div className="flex items-center gap-2 mb-2">
-                        <span className="h-2 w-2 rounded-full bg-amber-500 shadow-[0_0_12px_rgba(245,179,1,0.6)]"></span>
-                        <span className="text-[8px] font-black uppercase tracking-[0.3em] text-amber-500/80">Hệ thống Hiểu Luật</span>
+                <div className="mb-10 px-4">
+                    <div className="flex items-center gap-4 mb-4">
+                        <div className="h-12 w-12 rounded-2xl bg-white/10 p-2 backdrop-blur hover:bg-white/20 transition-all">
+                            <img src={logoImage} alt="Logo" className="h-full w-full object-contain" />
+                        </div>
+                        <div>
+                            <div className="flex items-center gap-2">
+                                <span className="h-2 w-2 rounded-full bg-amber-500 shadow-[0_0_12px_rgba(245,179,1,0.6)] animate-pulse"></span>
+                                <span className="text-[9px] font-black uppercase tracking-[0.3em] text-amber-500/90">Hệ thống Hiểu Luật</span>
+                            </div>
+                            <h2 className="text-base font-black text-white uppercase tracking-wider mt-0.5">Bảng điều khiển</h2>
+                        </div>
                     </div>
-                    <h2 className="text-sm font-black text-white uppercase tracking-wider">Bảng điều khiển</h2>
                 </div>
 
                 <div className="mb-4 px-2">

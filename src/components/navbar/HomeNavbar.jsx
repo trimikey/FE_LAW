@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import {
@@ -17,13 +17,14 @@ import api from '../../services/api';
 import { SOCKET_ENDPOINT } from '../../utils/chatEndpoint';
 import logo from '../../assets/Logo_Hieuluat2-removebg-preview.png';
 
-const HomeNavbar = ({ scrolled }) => {
+const HomeNavbar = ({ scrolled, isDashboard }) => {
   const { isAuthenticated, user, logout } = useAuth();
   const [unreadCount, setUnreadCount] = useState(0);
   const [overdueCount, setOverdueCount] = useState(0);
   const [showLawyerDropdown, setShowLawyerDropdown] = useState(false);
   const [showClientDropdown, setShowClientDropdown] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [dismissedOverdueCount, setDismissedOverdueCount] = useState(() => {
     return parseInt(localStorage.getItem('dismissed_overdue_count') || '0', 10);
   });
@@ -142,18 +143,18 @@ const HomeNavbar = ({ scrolled }) => {
         <div className="bg-[#061f3f] text-white text-[12px] py-2.5 overflow-hidden border-b border-white/10">
           <div className="mx-auto flex max-w-7xl items-center justify-between px-6">
             <div className="flex items-center space-x-6">
-              <div className="flex items-center gap-2">
+              <div className="hidden sm:flex items-center gap-2">
                 <MdPhoneInTalk className="text-[#f1b136]" size={16} />
                 <span>(+84) 0938 744 798</span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="hidden md:flex items-center gap-2">
                 <MdEmail className="text-[#f1b136]" size={16} />
                 <span>HieuLuat@gmail.com</span>
               </div>
             </div>
 
             <div className="flex items-center gap-4 text-slate-100">
-              <div className="relative group">
+              <div className="relative group hidden sm:block">
                 <input
                   type="text"
                   placeholder="Tìm kiếm"
@@ -226,102 +227,127 @@ const HomeNavbar = ({ scrolled }) => {
 
 
             {isAuthenticated ? (
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3 sm:gap-4">
                 <div className="relative">
                   <button
                     onClick={handleToggleNotifications}
-                    className={`relative flex items-center p-1 transition-all hover:scale-110 ${scrolled ? 'text-[#001a35]' : 'text-white'} ${showNotifications ? 'scale-110 text-amber-100' : ''}`}
+                    className={`relative flex items-center p-1 transition-all hover:scale-110 ${scrolled ? 'text-[#001a35]' : 'text-white'}`}
                     title="Thông báo"
                   >
-                    <HiBell size={scrolled ? 26 : 30} />
+                    <HiBell size={scrolled ? 24 : 28} />
                     {displayBadgeCount > 0 && (
-                      <span className="absolute -right-1 -top-1 flex h-[18px] min-w-[18px] items-center justify-center rounded-full border-2 border-white bg-rose-500 px-1 text-[9px] font-black text-white animate-bounce">
+                      <span className="absolute -right-1 -top-1 flex h-[16px] min-w-[16px] items-center justify-center rounded-full border border-white bg-rose-500 text-[8px] font-black text-white">
                         {displayBadgeCount}
                       </span>
                     )}
                   </button>
 
-                  {/* Notification Dropdown */}
                   {showNotifications && (
                     <>
                       <div className="fixed inset-0 z-10" onClick={() => setShowNotifications(false)} />
-                      <div className="absolute right-0 mt-4 w-80 transform rounded-2xl bg-white p-4 shadow-2xl ring-1 ring-slate-200 z-20 animate-in fade-in slide-in-from-top-2 duration-200">
+                      <div className="absolute right-0 mt-4 w-72 sm:w-80 transform rounded-2xl bg-white p-4 shadow-2xl ring-1 ring-slate-200 z-20 animate-in fade-in slide-in-from-top-2 duration-200">
+                        {/* Notification content stays same */}
                         <div className="mb-4 flex items-center justify-between border-b border-slate-50 pb-3">
                           <h3 className="text-sm font-black text-[#041837] uppercase tracking-tight">Thông báo quan trọng</h3>
                           <span className="rounded-lg bg-amber-50 px-2 py-0.5 text-[8px] font-black uppercase text-amber-600 tracking-widest">Mới</span>
                         </div>
-
                         <div className="space-y-2 max-h-[300px] overflow-y-auto pr-1">
                           {overdueCount > 0 && (
-                            <Link
-                              to="/dashboard?tab=consultations"
-                              onClick={() => setShowNotifications(false)}
-                              className="flex items-start gap-3 rounded-xl p-3 transition-colors hover:bg-amber-50 bg-amber-50/30 border border-amber-100/50"
-                            >
-                              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-amber-100 text-amber-600">
-                                <HiInformationCircle size={18} />
-                              </div>
+                            <Link to="/dashboard?tab=consultations" onClick={() => setShowNotifications(false)} className="flex items-start gap-3 rounded-xl p-3 transition-colors hover:bg-amber-50 bg-amber-50/30 border border-amber-100/50">
+                              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-amber-100 text-amber-600"><HiInformationCircle size={18} /></div>
                               <div className="flex-1 text-left">
                                 <p className="text-[11px] font-black text-[#041837] uppercase leading-tight">Lịch tư vấn trễ hạn</p>
-                                <p className="mt-1 text-[10px] font-bold text-slate-500">Bạn có {overdueCount} hồ sơ cần xử lý ngay</p>
+                                <p className="mt-1 text-[10px] font-bold text-slate-500">Bạn có {overdueCount} hồ sơ</p>
                               </div>
                             </Link>
                           )}
-
                           {unreadCount > 0 && (
-                            <Link
-                              to="/dashboard?tab=messages"
-                              onClick={() => setShowNotifications(false)}
-                              className="flex items-start gap-3 rounded-xl p-3 transition-colors hover:bg-blue-50 bg-blue-50/30 border border-blue-100/50"
-                            >
-                              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-blue-600">
-                                <HiChatAlt size={18} />
-                              </div>
+                            <Link to="/dashboard?tab=messages" onClick={() => setShowNotifications(false)} className="flex items-start gap-3 rounded-xl p-3 transition-colors hover:bg-blue-50 bg-blue-50/30 border border-blue-100/50">
+                              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-blue-600"><HiChatAlt size={18} /></div>
                               <div className="flex-1 text-left">
-                                <p className="text-[11px] font-black text-[#041837] uppercase leading-tight">Tin nhắn chưa đọc</p>
-                                <p className="mt-1 text-[10px] font-bold text-slate-500">Bạn có {unreadCount} phản hồi mới</p>
+                                <p className="text-[11px] font-black text-[#041837] uppercase leading-tight">Tin nhắn mới</p>
+                                <p className="mt-1 text-[10px] font-bold text-slate-500">Bạn có {unreadCount} phản hồi</p>
                               </div>
                             </Link>
                           )}
-
-                          {overdueCount === 0 && unreadCount === 0 && (
-                            <div className="py-12 text-center flex flex-col items-center justify-center gap-3">
-                              <div className="h-12 w-12 bg-slate-50 rounded-full flex items-center justify-center text-slate-200">
-                                <HiBell size={24} />
-                              </div>
-                              <p className="text-[9px] font-black text-slate-300 uppercase tracking-widest">Tuyệt vời! Không có thông báo mới</p>
-                            </div>
-                          )}
-                        </div>
-
-                        <div className="mt-4 border-t border-slate-50 pt-3 text-center">
-                          <Link
-                            to="/dashboard"
-                            onClick={() => setShowNotifications(false)}
-                            className="text-[9px] font-black uppercase tracking-widest text-[#041837] hover:text-[#f1b136] transition-colors"
-                          >
-                            Mở bảng điều khiển
-                          </Link>
+                          {!overdueCount && !unreadCount && <div className="py-8 text-center text-[9px] font-black text-slate-300 uppercase">Trống</div>}
                         </div>
                       </div>
                     </>
                   )}
                 </div>
 
-                <Link to="/dashboard" className={`relative flex items-center p-1 transition-colors ${scrolled ? 'text-[#001a35]' : 'text-white'}`} title="Dashboard">
-                  <MdAccountCircle size={scrolled ? 30 : 34} />
-                  {unreadCount > 0 && (
-                    <span className="absolute -right-1 -top-1 flex h-[17px] min-w-[17px] items-center justify-center rounded-full border border-white bg-red-600 px-1 text-[9px] font-bold text-white">
-                      {unreadCount > 99 ? '99+' : unreadCount}
-                    </span>
-                  )}
+                <Link to="/dashboard" className={`relative flex items-center p-1 transition-colors ${scrolled ? 'text-[#001a35]' : 'text-white'}`}>
+                  <MdAccountCircle size={scrolled ? 28 : 32} />
                 </Link>
+
+                {/* Sandwich Button for Mobile */}
+                {!isDashboard && (
+                  <button
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    className={`lg:hidden p-1.5 rounded-lg border transition-all ${scrolled ? 'border-slate-200 text-[#001630]' : 'border-white/30 text-white'}`}
+                  >
+                    <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16m-7 6h7"} />
+                    </svg>
+                  </button>
+                )}
               </div>
             ) : (
-              <Link to="/login" className={`text-[13px] font-bold uppercase transition-colors ${scrolled ? 'text-[#001a35]' : 'text-white'}`}>
-                Đăng nhập
-              </Link>
+              <div className="flex items-center gap-4">
+                <Link to="/login" className={`text-[13px] font-bold uppercase transition-colors ${scrolled ? 'text-[#001a35]' : 'text-white'}`}>
+                  Đăng nhập
+                </Link>
+                <button
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  className={`lg:hidden p-1.5 rounded-lg border transition-all ${scrolled ? 'border-slate-200 text-[#001630]' : 'border-white/30 text-white'}`}
+                >
+                  <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16m-7 6h7"} />
+                  </svg>
+                </button>
+              </div>
             )}
+          </div>
+        </div>
+
+        {/* Mobile Menu Drawer */}
+        <div className={`fixed inset-0 z-[60] transform bg-black/50 transition-opacity duration-300 lg:hidden ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} onClick={() => setIsMenuOpen(false)}>
+          <div className={`absolute right-0 top-0 h-full w-[280px] bg-white p-8 shadow-2xl transition-transform duration-300 ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`} onClick={e => e.stopPropagation()}>
+            <div className="flex flex-col space-y-6">
+              <div className="flex items-center justify-between border-b pb-4">
+                <h2 className="text-sm font-black text-[#041837] uppercase tracking-widest">Danh mục</h2>
+                <button onClick={() => setIsMenuOpen(false)} className="text-slate-400 hover:text-rose-500"><svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
+              </div>
+
+              <div className="flex flex-col space-y-4 font-bold text-slate-600 uppercase tracking-tight text-xs">
+                <Link to="/" onClick={() => setIsMenuOpen(false)} className="hover:text-[#f1b136] flex items-center gap-2"><MdHome size={18} /> Trang chủ</Link>
+                <Link to="/about" onClick={() => setIsMenuOpen(false)} className="hover:text-[#f1b136]">Về chúng tôi</Link>
+                <Link to="/lawyer" onClick={() => setIsMenuOpen(false)} className="hover:text-[#f1b136]">Tiện ích tìm kiếm</Link>
+                <Link to="/contact" onClick={() => setIsMenuOpen(false)} className="hover:text-[#f1b136]">Liên hệ</Link>
+
+                {isLawyer && (
+                  <>
+                    <div className="h-px bg-slate-100 my-2" />
+                    <Link to="/dashboard" onClick={() => setIsMenuOpen(false)} className="text-amber-600">Bảng điều khiển Luật sư</Link>
+                    <Link to="/lawyer/profile" onClick={() => setIsMenuOpen(false)}>Hồ sơ luật sư</Link>
+                  </>
+                )}
+
+                {isClient && (
+                  <>
+                    <div className="h-px bg-slate-100 my-2" />
+                    <Link to="/dashboard" onClick={() => setIsMenuOpen(false)} className="text-amber-600">Bảng điều khiển cá nhân</Link>
+                  </>
+                )}
+
+                {isAuthenticated ? (
+                  <button onClick={() => { logout(); setIsMenuOpen(false); }} className="text-left text-rose-500 mt-4">Đăng xuất</button>
+                ) : (
+                  <Link to="/login" onClick={() => setIsMenuOpen(false)} className="bg-[#f1b136] text-white text-center py-3 rounded-xl mt-4">Đăng nhập ngay</Link>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </nav>

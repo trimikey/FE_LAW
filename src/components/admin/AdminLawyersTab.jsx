@@ -29,53 +29,53 @@ const AdminLawyersTab = ({ lawyers, pagination, loading, onPageChange, handleVer
             {/* Header */}
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 px-4">
                 <div>
-                    <h1 className="text-4xl font-black text-[#041837] tracking-tight uppercase">Quản lý luật sư</h1>
-                    <p className="text-slate-400 font-bold text-[10px] uppercase tracking-widest mt-2 flex items-center gap-2">
-                        <span className="h-2 w-2 rounded-full bg-amber-500 animate-pulse" />
-                        Tổng cộng {pagination?.total || 0} luật sư trên hệ thống
+                    <h1 className="text-2xl md:text-4xl font-black text-[#041837] tracking-tight uppercase">Quản lý luật sư</h1>
+                    <p className="text-slate-400 font-bold text-[9px] md:text-[10px] uppercase tracking-widest mt-2 flex items-center gap-2">
+                        <span className="h-1.5 w-1.5 md:h-2 md:w-2 rounded-full bg-amber-500 animate-pulse" />
+                        Tổng cộng {pagination?.total || 0} luật sư
                     </p>
                 </div>
 
                 <div className="flex flex-col md:flex-row items-center gap-4">
                     <div className="relative group w-full md:w-80">
-                        <HiSearch className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-amber-500 transition-colors" size={20} />
+                        <HiSearch className="absolute left-5 md:left-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-amber-500 transition-colors" size={18} />
                         <input
                             type="text"
-                            placeholder="Tìm tên hoặc email..."
+                            placeholder="Tìm kiếm..."
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                             onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                            className="h-14 pl-14 pr-8 rounded-2xl bg-white border border-slate-100 shadow-sm text-sm font-bold text-[#041837] focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 transition-all w-full outline-none"
+                            className="h-12 md:h-14 pl-12 md:pl-14 pr-8 rounded-2xl bg-white border border-slate-100 shadow-sm text-xs md:text-sm font-bold text-[#041837] focus:outline-none transition-all w-full outline-none"
                         />
                     </div>
                 </div>
             </div>
 
             {/* Filters */}
-            <div className="bg-white rounded-3xl border border-slate-100 p-4 flex flex-wrap items-center gap-4 mx-4">
+            <div className="bg-white rounded-2xl md:rounded-3xl border border-slate-100 p-2 md:p-4 flex flex-wrap items-center gap-2 md:gap-4 mx-2 md:mx-4 overflow-x-auto whitespace-nowrap scrollbar-hide">
                 <button
                     onClick={() => handleStatusChange('')}
-                    className={`px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${status === '' ? 'bg-[#041837] text-white shadow-lg' : 'bg-slate-50 text-slate-400 hover:bg-slate-100'}`}
+                    className={`px-4 md:px-6 py-2 md:py-2.5 rounded-xl text-[9px] md:text-[10px] font-black uppercase tracking-widest transition-all ${status === '' ? 'bg-[#041837] text-white shadow-lg' : 'bg-slate-50 text-slate-400 hover:bg-slate-100'}`}
                 >
                     Tất cả
                 </button>
                 <button
                     onClick={() => handleStatusChange('pending')}
-                    className={`px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${status === 'pending' ? 'bg-amber-500 text-[#041837] shadow-lg' : 'bg-slate-50 text-slate-400 hover:bg-slate-100'}`}
+                    className={`px-4 md:px-6 py-2 md:py-2.5 rounded-xl text-[9px] md:text-[10px] font-black uppercase tracking-widest transition-all ${status === 'pending' ? 'bg-amber-500 text-[#041837] shadow-lg' : 'bg-slate-50 text-slate-400 hover:bg-slate-100'}`}
                 >
-                    Đang chờ duyệt
+                    Chờ duyệt
                 </button>
                 <button
                     onClick={() => handleStatusChange('verified')}
-                    className={`px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${status === 'verified' ? 'bg-emerald-500 text-white shadow-lg' : 'bg-slate-50 text-slate-400 hover:bg-slate-100'}`}
+                    className={`px-4 md:px-6 py-2 md:py-2.5 rounded-xl text-[9px] md:text-[10px] font-black uppercase tracking-widest transition-all ${status === 'verified' ? 'bg-emerald-500 text-white shadow-lg' : 'bg-slate-50 text-slate-400 hover:bg-slate-100'}`}
                 >
                     Đã xác thực
                 </button>
                 <button
                     onClick={() => handleStatusChange('rejected')}
-                    className={`px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${status === 'rejected' ? 'bg-rose-500 text-white shadow-lg' : 'bg-slate-50 text-slate-400 hover:bg-slate-100'}`}
+                    className={`px-4 md:px-6 py-2 md:py-2.5 rounded-xl text-[9px] md:text-[10px] font-black uppercase tracking-widest transition-all ${status === 'rejected' ? 'bg-rose-500 text-white shadow-lg' : 'bg-slate-50 text-slate-400 hover:bg-slate-100'}`}
                 >
-                    Đã từ chối
+                    Bị từ chối
                 </button>
             </div>
 
@@ -121,54 +121,46 @@ const AdminLawyersTab = ({ lawyers, pagination, loading, onPageChange, handleVer
                                         </div>
                                     </div>
 
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-                                        <div className="p-6 rounded-3xl bg-slate-50 border border-slate-100">
-                                            <div className="flex items-center gap-3 mb-3 text-slate-400">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-8 md:mb-10">
+                                        <div className="p-4 md:p-6 rounded-2xl md:rounded-3xl bg-slate-50 border border-slate-100">
+                                            <div className="flex items-center gap-3 mb-2 md:mb-3 text-slate-400">
                                                 <HiIdentification />
-                                                <span className="text-[9px] font-black uppercase tracking-widest">Thẻ luật sư</span>
+                                                <span className="text-[8px] md:text-[9px] font-black uppercase tracking-widest">Thẻ luật sư</span>
                                             </div>
-                                            <p className="text-sm font-black text-[#041837]">{lawyer.bar_number}</p>
+                                            <p className="text-xs md:text-sm font-black text-[#041837]">{lawyer.bar_number}</p>
                                         </div>
-                                        <div className="p-6 rounded-3xl bg-slate-50 border border-slate-100">
-                                            <div className="flex items-center gap-3 mb-3 text-slate-400">
+                                        <div className="p-4 md:p-6 rounded-2xl md:rounded-3xl bg-slate-50 border border-slate-100">
+                                            <div className="flex items-center gap-3 mb-2 md:mb-3 text-slate-400">
                                                 <HiOfficeBuilding />
-                                                <span className="text-[9px] font-black uppercase tracking-widest">Kinh nghiệm</span>
+                                                <span className="text-[8px] md:text-[9px] font-black uppercase tracking-widest">Kinh nghiệm</span>
                                             </div>
-                                            <p className="text-sm font-black text-[#041837] truncate">{lawyer.years_of_experience || 0} năm công tác</p>
+                                            <p className="text-xs md:text-sm font-black text-[#041837] truncate">{lawyer.years_of_experience || 0} năm</p>
                                         </div>
                                     </div>
 
-                                    <div className="flex gap-4">
+                                    <div className="flex flex-col md:flex-row gap-3 md:gap-4">
                                         <button
                                             onClick={() => setSelectedLawyer(lawyer)}
-                                            className="flex-1 h-16 rounded-2xl bg-white border-2 border-[#041837] text-[#041837] text-[10px] font-black uppercase tracking-widest hover:bg-slate-50 transition-all active:scale-95"
+                                            className="h-12 md:h-16 rounded-xl md:rounded-2xl bg-white border-2 border-[#041837] text-[#041837] text-[9px] md:text-[10px] font-black uppercase tracking-widest hover:bg-slate-50 transition-all active:scale-95"
                                         >
                                             Hồ sơ chi tiết
                                         </button>
                                         {lawyer.verification_status === 'pending' && (
-                                            <>
+                                            <div className="flex gap-2 flex-1">
                                                 <button
                                                     onClick={() => handleVerifyLawyer(lawyer.id, 'verified')}
-                                                    className="flex-1 h-16 rounded-2xl bg-[#041837] text-white text-[10px] font-black uppercase tracking-widest hover:bg-black transition-all shadow-xl active:scale-95 flex items-center justify-center gap-2"
+                                                    className="flex-1 h-12 md:h-16 rounded-xl md:rounded-2xl bg-[#041837] text-white text-[9px] md:text-[10px] font-black uppercase tracking-widest hover:bg-black transition-all shadow-xl active:scale-95 flex items-center justify-center gap-2"
                                                 >
-                                                    <HiCheck size={18} className="text-emerald-500" />
+                                                    <HiCheck size={16} className="text-emerald-500" />
                                                     Duyệt
                                                 </button>
                                                 <button
                                                     onClick={() => handleVerifyLawyer(lawyer.id, 'rejected')}
-                                                    className="h-16 w-16 rounded-2xl bg-rose-50 text-rose-500 hover:bg-rose-500 hover:text-white transition-all active:scale-95 flex items-center justify-center shadow-lg"
+                                                    className="h-12 w-12 md:h-16 md:w-16 shrink-0 rounded-xl md:rounded-2xl bg-rose-50 text-rose-500 hover:bg-rose-500 hover:text-white transition-all active:scale-95 flex items-center justify-center shadow-lg"
                                                 >
-                                                    <HiX size={20} />
+                                                    <HiX size={18} />
                                                 </button>
-                                            </>
-                                        )}
-                                        {lawyer.verification_status === 'rejected' && (
-                                            <button
-                                                onClick={() => handleVerifyLawyer(lawyer.id, 'verified')}
-                                                className="flex-1 h-16 rounded-2xl bg-emerald-500 text-white text-[10px] font-black uppercase tracking-widest hover:bg-emerald-600 transition-all shadow-xl active:scale-95 flex items-center justify-center gap-2"
-                                            >
-                                                Duyệt lại
-                                            </button>
+                                            </div>
                                         )}
                                     </div>
                                 </div>

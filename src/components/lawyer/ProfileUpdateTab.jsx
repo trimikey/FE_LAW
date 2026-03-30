@@ -124,22 +124,22 @@ const ProfileUpdateTab = () => {
     return (
         <div className="max-w-6xl mx-auto pb-24 animate-in fade-in duration-700">
             {/* Header / Banner Component */}
-            <div className="relative h-64 rounded-[48px] overflow-hidden mb-16 shadow-2xl group">
+            <div className="relative h-48 md:h-64 rounded-3xl md:rounded-[48px] overflow-hidden mb-8 md:mb-16 shadow-2xl group mx-4 md:mx-0">
                 <div className="absolute inset-0 bg-[#041837] transition-transform duration-1000 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-900/40 via-transparent to-amber-500/10" />
 
                 {/* Decorative floating icon */}
-                <div className="absolute top-1/2 right-20 -translate-y-1/2 opacity-10">
+                <div className="absolute top-1/2 right-20 -translate-y-1/2 opacity-10 hidden md:block">
                     <HiIdentification className="h-48 w-48 text-white rotate-12" />
                 </div>
 
-                <div className="relative z-10 h-full flex flex-col items-center justify-center text-white px-10 text-center">
-                    <span className="text-amber-500 font-black uppercase tracking-[0.4em] text-[10px] mb-4">Verification Center</span>
-                    <h1 className="text-4xl md:text-5xl font-black uppercase tracking-tight mb-6">Xác thực hồ sơ Luật sư</h1>
-                    <div className="flex items-center gap-3 text-xs font-bold text-slate-300 uppercase tracking-widest bg-white/5 backdrop-blur-md px-6 py-2.5 rounded-2xl border border-white/10">
+                <div className="relative z-10 h-full flex flex-col items-center justify-center text-white px-6 md:px-10 text-center">
+                    <span className="text-amber-500 font-black uppercase tracking-[0.4em] text-[8px] md:text-[10px] mb-4">Verification Center</span>
+                    <h1 className="text-2xl md:text-5xl font-black uppercase tracking-tight mb-4 md:mb-6">Xác thực hồ sơ Luật sư</h1>
+                    <div className="flex items-center gap-2 md:gap-3 text-[9px] md:text-xs font-bold text-slate-300 uppercase tracking-widest bg-white/5 backdrop-blur-md px-4 md:px-6 py-2 md:py-2.5 rounded-2xl border border-white/10">
                         <span>Hồ sơ công ty</span>
                         <HiChevronRight className="h-4 w-4 text-amber-500" />
-                        <span className="text-amber-500">Cập nhật thông tin nghiệp vụ</span>
+                        <span className="text-amber-500">Thông tin nghiệp vụ</span>
                     </div>
                 </div>
             </div>
@@ -147,18 +147,18 @@ const ProfileUpdateTab = () => {
             <form onSubmit={handleSubmit} className="space-y-12">
 
                 {/* Section Header */}
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 px-4">
-                    <div>
-                        <h2 className="text-3xl font-black text-[#041837] tracking-tight flex items-center gap-3">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 px-6">
+                    <div className="text-center md:text-left">
+                        <h2 className="text-2xl md:text-3xl font-black text-[#041837] tracking-tight flex flex-col md:flex-row items-center gap-3">
                             <HiUser className="h-8 w-8 text-amber-500" />
                             Hồ sơ cá nhân & Đại diện
                         </h2>
-                        <p className="mt-2 text-slate-400 font-bold uppercase tracking-widest text-[10px]">Cập nhật thông tin hiển thị với khách hàng tiềm năng</p>
+                        <p className="mt-2 text-slate-400 font-bold uppercase tracking-widest text-[9px] md:text-[10px]">Cập nhật thông tin hiển thị với khách hàng tiềm năng</p>
                     </div>
                     <button
                         type="submit"
                         disabled={saving}
-                        className="bg-amber-500 hover:bg-amber-600 text-[#041837] font-black py-4 px-10 text-xs tracking-widest uppercase rounded-[24px] shadow-2xl shadow-amber-500/30 transition-all active:scale-95 disabled:opacity-50 flex items-center gap-3"
+                        className="bg-amber-500 hover:bg-amber-600 text-[#041837] font-black py-4 px-6 md:px-10 text-[10px] md:text-xs tracking-widest uppercase rounded-2xl md:rounded-[24px] shadow-2xl shadow-amber-500/30 transition-all active:scale-95 disabled:opacity-50 flex items-center justify-center gap-3"
                     >
                         {saving ? 'Đang lưu...' : 'Lưu hồ sơ ngay'}
                         <HiCheckCircle className="h-4 w-4" />
@@ -196,7 +196,7 @@ const ProfileUpdateTab = () => {
                     {/* Column 1 */}
                     <div className="space-y-10">
                         {/* Section: Basic info */}
-                        <section className="bg-white rounded-[40px] border border-slate-100 p-10 shadow-sm space-y-8 relative overflow-hidden">
+                        <section className="bg-white rounded-3xl md:rounded-[40px] border border-slate-100 p-6 md:p-10 shadow-sm space-y-8 relative overflow-hidden">
                             <div className="absolute top-0 right-0 p-8 opacity-[0.03]">
                                 <HiIdentification className="h-32 w-32 text-[#041837]" />
                             </div>
@@ -398,11 +398,11 @@ const ProfileUpdateTab = () => {
                     </div>
                 </div>
 
-                <div className="text-center pt-10">
+                <div className="text-center pt-10 px-6">
                     <button
                         type="submit"
                         disabled={saving}
-                        className="bg-[#041837] hover:bg-black text-white font-black py-6 px-20 text-xs tracking-[0.3em] uppercase rounded-[32px] shadow-[0_20px_50px_rgba(0,0,0,0.2)] transition-all active:scale-95 disabled:opacity-50"
+                        className="bg-[#041837] hover:bg-black text-white font-black py-5 md:py-6 px-10 md:px-20 text-[10px] md:text-xs tracking-[0.2em] md:tracking-[0.3em] uppercase rounded-2xl md:rounded-[32px] shadow-[0_20px_50px_rgba(0,0,0,0.2)] transition-all active:scale-95 disabled:opacity-50 w-full md:w-auto"
                     >
                         {saving ? 'Đang đồng bộ dữ liệu...' : 'Xác nhận cập nhật hồ sơ'}
                     </button>

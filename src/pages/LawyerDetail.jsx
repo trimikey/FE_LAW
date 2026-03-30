@@ -71,153 +71,155 @@ const CalendarModal = ({
   ].filter((section) => section.slots.length > 0);
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-[#041837]/60 p-4 backdrop-blur-md animate-in fade-in duration-300">
-      <div className="w-full max-w-6xl overflow-hidden rounded-[48px] bg-white shadow-[0_40px_100px_-20px_rgba(0,0,0,0.3)] border border-white/20">
-        <div className="flex items-center justify-between bg-[#041837] p-8 text-white relative overflow-hidden">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-[#041837]/60 p-0 md:p-4 backdrop-blur-md animate-in fade-in duration-300">
+      <div className="w-full h-full md:h-auto md:max-w-6xl overflow-hidden md:rounded-[48px] bg-white shadow-[0_40px_100px_-20px_rgba(0,0,0,0.3)] border border-white/20 flex flex-col">
+        <div className="flex items-center justify-between bg-[#041837] p-6 md:p-8 text-white relative overflow-hidden shrink-0">
           {/* Decorative background element */}
-          <div className="absolute top-0 right-0 p-8 opacity-10">
-            <HiCalendar size={120} />
+          <div className="absolute top-0 right-0 p-4 md:p-8 opacity-10">
+            <HiCalendar className="h-16 w-16 md:h-32 md:w-32" />
           </div>
           <div className="relative z-10">
-            <span className="text-amber-500 font-black uppercase tracking-[0.4em] text-[10px] mb-2 block">Booking System</span>
-            <h3 className="text-3xl font-black tracking-tight">Lịch làm việc của Luật sư</h3>
+            <span className="text-amber-500 font-black uppercase tracking-[0.4em] text-[8px] md:text-[10px] mb-1 md:mb-2 block">Booking System</span>
+            <h3 className="text-xl md:text-3xl font-black tracking-tight uppercase">Lịch làm việc</h3>
           </div>
           <button
             onClick={onClose}
-            className="relative z-10 h-14 w-14 rounded-2xl bg-white/10 flex items-center justify-center text-white hover:bg-amber-500 hover:text-[#041837] transition-all transform hover:rotate-90"
+            className="relative z-10 h-10 w-10 md:h-14 md:w-14 rounded-xl md:rounded-2xl bg-white/10 flex items-center justify-center text-white hover:bg-amber-500 hover:text-[#041837] transition-all transform hover:rotate-90"
           >
-            <HiX size={32} />
+            <HiX className="h-6 w-6 md:h-8 md:h-8" />
           </button>
         </div>
 
-        <div className="grid grid-cols-1 gap-12 p-10 lg:grid-cols-2">
-          <div className="space-y-6">
-            <div className="flex items-center justify-between px-2">
-              <h4 className="text-xl font-black text-[#041837] tracking-tight uppercase">Chọn ngày tư vấn</h4>
-              <div className="flex items-center gap-3">
-                <button onClick={() => onMonthChange(-1)} className="h-12 w-12 rounded-xl border border-slate-100 flex items-center justify-center text-[#041837] hover:bg-slate-50 shadow-sm transition-all group">
-                  <HiChevronLeft size={24} className="group-hover:-translate-x-1 transition-transform" />
-                </button>
-                <span className="text-sm font-black text-[#041837] uppercase tracking-widest min-w-[140px] text-center">
-                  {monthDate.toLocaleString('vi-VN', { month: 'long', year: 'numeric' })}
-                </span>
-                <button onClick={() => onMonthChange(1)} className="h-12 w-12 rounded-xl border border-slate-100 flex items-center justify-center text-[#041837] hover:bg-slate-50 shadow-sm transition-all group">
-                  <HiChevronRight size={24} className="group-hover:translate-x-1 transition-transform" />
-                </button>
-              </div>
-            </div>
-
-            <div className="bg-slate-50/50 rounded-[32px] p-6 border border-slate-100">
-              <div className="mb-4 grid grid-cols-7 gap-1 text-[10px] font-black text-slate-300 uppercase tracking-widest text-center">
-                {DAYS.map((day) => <div key={day} className="py-2">{day}</div>)}
+        <div className="flex-1 overflow-y-auto">
+          <div className="grid grid-cols-1 gap-6 md:gap-12 p-6 md:p-10 lg:grid-cols-2">
+            <div className="space-y-6">
+              <div className="flex items-center justify-between px-2">
+                <h4 className="text-xl font-black text-[#041837] tracking-tight uppercase">Chọn ngày tư vấn</h4>
+                <div className="flex items-center gap-3">
+                  <button onClick={() => onMonthChange(-1)} className="h-12 w-12 rounded-xl border border-slate-100 flex items-center justify-center text-[#041837] hover:bg-slate-50 shadow-sm transition-all group">
+                    <HiChevronLeft size={24} className="group-hover:-translate-x-1 transition-transform" />
+                  </button>
+                  <span className="text-sm font-black text-[#041837] uppercase tracking-widest min-w-[140px] text-center">
+                    {monthDate.toLocaleString('vi-VN', { month: 'long', year: 'numeric' })}
+                  </span>
+                  <button onClick={() => onMonthChange(1)} className="h-12 w-12 rounded-xl border border-slate-100 flex items-center justify-center text-[#041837] hover:bg-slate-50 shadow-sm transition-all group">
+                    <HiChevronRight size={24} className="group-hover:translate-x-1 transition-transform" />
+                  </button>
+                </div>
               </div>
 
-              <div className="grid grid-cols-7 gap-2">
-                {cells.map((day) => {
-                  const dayKey = getLocalDateKey(day);
-                  const inMonth = day.getMonth() === month;
-                  const isSelected = selectedKey === dayKey;
-                  const hasSlot = (slotsByDate.get(dayKey) || []).length > 0;
+              <div className="bg-slate-50/50 rounded-[32px] p-6 border border-slate-100">
+                <div className="mb-4 grid grid-cols-7 gap-1 text-[10px] font-black text-slate-300 uppercase tracking-widest text-center">
+                  {DAYS.map((day) => <div key={day} className="py-2">{day}</div>)}
+                </div>
 
-                  return (
-                    <button
-                      key={dayKey}
-                      onClick={() => onSelectDate(day)}
-                      className={`h-12 w-full rounded-2xl text-xs font-black transition-all border-2 flex items-center justify-center relative overflow-hidden group
+                <div className="grid grid-cols-7 gap-2">
+                  {cells.map((day) => {
+                    const dayKey = getLocalDateKey(day);
+                    const inMonth = day.getMonth() === month;
+                    const isSelected = selectedKey === dayKey;
+                    const hasSlot = (slotsByDate.get(dayKey) || []).length > 0;
+
+                    return (
+                      <button
+                        key={dayKey}
+                        onClick={() => onSelectDate(day)}
+                        className={`h-12 w-full rounded-2xl text-xs font-black transition-all border-2 flex items-center justify-center relative overflow-hidden group
                         ${isSelected ? 'bg-amber-500 border-amber-500 text-white shadow-xl shadow-amber-500/20 scale-[1.05] z-10' :
-                          hasSlot ? 'bg-white border-blue-50 text-[#041837] hover:border-amber-500' :
-                            'bg-transparent border-transparent text-slate-200 cursor-not-allowed'}
+                            hasSlot ? 'bg-white border-blue-50 text-[#041837] hover:border-amber-500' :
+                              'bg-transparent border-transparent text-slate-200 cursor-not-allowed'}
                         ${!inMonth ? 'opacity-20' : 'opacity-100'}`}
-                      disabled={!inMonth && !hasSlot}
-                    >
-                      {day.getDate()}
-                      {hasSlot && !isSelected && <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 h-1 w-1 rounded-full bg-amber-500" />}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div className="p-6 bg-blue-50/50 rounded-3xl border border-blue-100">
-              <div className="flex items-center gap-4">
-                <div className="h-12 w-12 bg-white rounded-2xl flex items-center justify-center text-blue-600 shadow-sm">
-                  <HiShieldCheck size={28} />
-                </div>
-                <div>
-                  <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest">Thông tin quan trọng</p>
-                  <p className="text-xs font-bold text-[#041837] mt-1">Lịch tư vấn được mã hóa và xác nhận tức thì qua SMS/Email.</p>
+                        disabled={!inMonth && !hasSlot}
+                      >
+                        {day.getDate()}
+                        {hasSlot && !isSelected && <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 h-1 w-1 rounded-full bg-amber-500" />}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
-            </div>
-          </div>
 
-          <div className="flex flex-col h-full bg-slate-50 rounded-[40px] p-8 border border-slate-100 relative overflow-hidden">
-            <div className="absolute top-0 right-0 p-10 opacity-[0.03]">
-              <HiVideoCamera size={200} />
-            </div>
-            <h4 className="relative z-10 mb-8 text-xl font-black text-[#041837] tracking-tight uppercase">Khung giờ khả dụng</h4>
-
-            <div className="relative z-10 flex-1 overflow-y-auto space-y-8 pr-2 custom-scrollbar max-h-[480px]">
-              {!selectedDate ? (
-                <div className="flex h-full flex-col items-center justify-center text-center py-20">
-                  <div className="h-24 w-24 bg-white rounded-[32px] shadow-xl flex items-center justify-center text-slate-100 mb-6">
-                    <HiCalendar size={48} />
+              <div className="p-6 bg-blue-50/50 rounded-3xl border border-blue-100">
+                <div className="flex items-center gap-4">
+                  <div className="h-12 w-12 bg-white rounded-2xl flex items-center justify-center text-blue-600 shadow-sm">
+                    <HiShieldCheck size={28} />
                   </div>
-                  <p className="text-sm font-black text-[#041837] uppercase tracking-widest px-8">Vui lòng chọn ngày phía bên trái để xem giờ trống</p>
+                  <div>
+                    <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest">Thông tin quan trọng</p>
+                    <p className="text-xs font-bold text-[#041837] mt-1">Lịch tư vấn được mã hóa và xác nhận tức thì qua SMS/Email.</p>
+                  </div>
                 </div>
-              ) : slotList.length === 0 ? (
-                <div className="flex h-full flex-col items-center justify-center text-center py-20">
-                  <p className="text-sm font-black text-slate-400 uppercase tracking-[0.2em]">Rất tiếc, ngày này hiện chưa có lịch trống khả dụng</p>
-                </div>
-              ) : (
-                <div className="space-y-10 pb-8">
-                  {slotSections.map((section) => (
-                    <div key={section.key}>
-                      <div className="mb-6 flex items-center justify-between">
-                        <h6 className="text-[10px] font-black uppercase tracking-[0.3em] text-amber-600 flex items-center gap-2">
-                          <span className="block h-1 w-6 bg-amber-500 rounded-full" />
-                          {section.key}
-                        </h6>
-                        <span className="text-[10px] font-black text-slate-400 bg-white px-3 py-1 rounded-full shadow-sm border border-slate-50 uppercase tracking-widest">
-                          {section.slots.length} PHIÊN TRỐNG
-                        </span>
-                      </div>
-                      <div className="grid grid-cols-1 gap-4">
-                        {section.slots.map((slot) => {
-                          const TypeIcon = getConsultationTypeIcon(slot.consultation_type);
-                          return (
-                            <div key={slot.id} className="group flex items-center justify-between rounded-[24px] bg-white p-5 shadow-sm border-2 border-transparent hover:border-amber-500 hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.01]">
-                              <div className="flex items-center gap-5">
-                                <div className={`rounded-2xl p-4 transition-colors ${slot.consultation_type === 'video' ? 'bg-blue-50 text-blue-600' : 'bg-emerald-50 text-emerald-600'}`}>
-                                  <TypeIcon className="h-6 w-6" />
-                                </div>
-                                <div>
-                                  <p className="text-lg font-black text-[#041837] tracking-tight">
-                                    {slot.segmentStartLabel || new Date(slot.start_time).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })}
-                                    {slot.segmentEndLabel ? ' - ' + slot.segmentEndLabel : ''}
-                                  </p>
-                                  <p className="mt-1 text-[9px] font-black uppercase tracking-widest text-slate-400 group-hover:text-amber-500">
-                                    {slot.consultation_type === 'video' ? 'Video Conference' : slot.consultation_type === 'phone' ? 'Direct Call' : 'Offline Meeting'}
-                                  </p>
-                                </div>
-                              </div>
-                              <button
-                                onClick={() => {
-                                  onSelectSlot?.(slot);
-                                  onClose();
-                                }}
-                                className="h-12 px-8 rounded-xl bg-[#041837] text-white text-[10px] font-black uppercase tracking-widest hover:bg-amber-500 hover:text-[#041837] transition-all transform active:scale-95 shadow-lg shadow-blue-500/10"
-                              >
-                                LỰA CHỌN
-                              </button>
-                            </div>
-                          );
-                        })}
-                      </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col h-full bg-slate-50 rounded-[40px] p-8 border border-slate-100 relative overflow-hidden">
+              <div className="absolute top-0 right-0 p-10 opacity-[0.03]">
+                <HiVideoCamera size={200} />
+              </div>
+              <h4 className="relative z-10 mb-8 text-xl font-black text-[#041837] tracking-tight uppercase">Khung giờ khả dụng</h4>
+
+              <div className="relative z-10 flex-1 overflow-y-auto space-y-8 pr-2 custom-scrollbar max-h-[480px]">
+                {!selectedDate ? (
+                  <div className="flex h-full flex-col items-center justify-center text-center py-20">
+                    <div className="h-24 w-24 bg-white rounded-[32px] shadow-xl flex items-center justify-center text-slate-100 mb-6">
+                      <HiCalendar size={48} />
                     </div>
-                  ))}
-                </div>
-              )}
+                    <p className="text-sm font-black text-[#041837] uppercase tracking-widest px-8">Vui lòng chọn ngày phía bên trái để xem giờ trống</p>
+                  </div>
+                ) : slotList.length === 0 ? (
+                  <div className="flex h-full flex-col items-center justify-center text-center py-20">
+                    <p className="text-sm font-black text-slate-400 uppercase tracking-[0.2em]">Rất tiếc, ngày này hiện chưa có lịch trống khả dụng</p>
+                  </div>
+                ) : (
+                  <div className="space-y-10 pb-8">
+                    {slotSections.map((section) => (
+                      <div key={section.key}>
+                        <div className="mb-6 flex items-center justify-between">
+                          <h6 className="text-[10px] font-black uppercase tracking-[0.3em] text-amber-600 flex items-center gap-2">
+                            <span className="block h-1 w-6 bg-amber-500 rounded-full" />
+                            {section.key}
+                          </h6>
+                          <span className="text-[10px] font-black text-slate-400 bg-white px-3 py-1 rounded-full shadow-sm border border-slate-50 uppercase tracking-widest">
+                            {section.slots.length} PHIÊN TRỐNG
+                          </span>
+                        </div>
+                        <div className="grid grid-cols-1 gap-4">
+                          {section.slots.map((slot) => {
+                            const TypeIcon = getConsultationTypeIcon(slot.consultation_type);
+                            return (
+                              <div key={slot.id} className="group flex items-center justify-between rounded-[24px] bg-white p-5 shadow-sm border-2 border-transparent hover:border-amber-500 hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.01]">
+                                <div className="flex items-center gap-5">
+                                  <div className={`rounded-2xl p-4 transition-colors ${slot.consultation_type === 'video' ? 'bg-blue-50 text-blue-600' : 'bg-emerald-50 text-emerald-600'}`}>
+                                    <TypeIcon className="h-6 w-6" />
+                                  </div>
+                                  <div>
+                                    <p className="text-lg font-black text-[#041837] tracking-tight">
+                                      {slot.segmentStartLabel || new Date(slot.start_time).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })}
+                                      {slot.segmentEndLabel ? ' - ' + slot.segmentEndLabel : ''}
+                                    </p>
+                                    <p className="mt-1 text-[9px] font-black uppercase tracking-widest text-slate-400 group-hover:text-amber-500">
+                                      {slot.consultation_type === 'video' ? 'Video Conference' : slot.consultation_type === 'phone' ? 'Direct Call' : 'Offline Meeting'}
+                                    </p>
+                                  </div>
+                                </div>
+                                <button
+                                  onClick={() => {
+                                    onSelectSlot?.(slot);
+                                    onClose();
+                                  }}
+                                  className="h-12 px-8 rounded-xl bg-[#041837] text-white text-[10px] font-black uppercase tracking-widest hover:bg-amber-500 hover:text-[#041837] transition-all transform active:scale-95 shadow-lg shadow-blue-500/10"
+                                >
+                                  LỰA CHỌN
+                                </button>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -565,17 +567,17 @@ const LawyerDetail = () => {
         <div className="grid grid-cols-1 lg:grid-cols-[2fr,1fr] gap-12">
           {/* Main Info */}
           <section className="space-y-10">
-            <div className="bg-white rounded-[48px] border border-slate-100 overflow-hidden shadow-[0_40px_100px_-40px_rgba(0,0,0,0.1)]">
-              <div className="h-64 bg-[#041837] relative overflow-hidden group">
+            <div className="bg-white rounded-3xl md:rounded-[48px] border border-slate-100 overflow-hidden shadow-[0_40px_100px_-40px_rgba(0,0,0,0.1)]">
+              <div className="h-40 md:h-64 bg-[#041837] relative overflow-hidden group">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-900/40 via-transparent to-amber-500/10" />
-                <div className="absolute top-0 right-0 p-20 opacity-10 transform scale-150 rotate-12 transition-transform duration-1000 group-hover:rotate-45">
-                  <HiIdentification size={300} className="text-white" />
+                <div className="absolute top-0 right-0 p-10 md:p-20 opacity-10 transform scale-150 rotate-12 transition-transform duration-1000 group-hover:rotate-45">
+                  <HiIdentification className="h-40 w-40 md:h-80 md:w-80 text-white" />
                 </div>
               </div>
-              <div className="px-10 pb-12 -mt-24 relative z-10">
-                <div className="flex flex-col md:flex-row md:items-end gap-10">
-                  <div className="relative group">
-                    <div className="w-48 h-48 rounded-[40px] border-[10px] border-white shadow-2xl overflow-hidden bg-slate-100">
+              <div className="px-6 md:px-10 pb-10 md:pb-12 -mt-16 md:-mt-24 relative z-10">
+                <div className="flex flex-col md:flex-row md:items-end gap-6 md:gap-10">
+                  <div className="relative group mx-auto md:mx-0">
+                    <div className="w-40 h-40 md:w-48 md:h-48 rounded-3xl md:rounded-[40px] border-[6px] md:border-[10px] border-white shadow-2xl overflow-hidden bg-slate-100">
                       <img
                         src={resolveAvatarUrl(lawyer.user?.avatar) || `https://ui-avatars.com/api/?name=${encodeURIComponent(lawyer.user?.full_name || 'Lawyer')}&background=random`}
                         alt={lawyer.user?.full_name}
@@ -671,7 +673,7 @@ const LawyerDetail = () => {
                     <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest">Phí tư vấn cơ sở</p>
                   </div>
                   <p className="text-3xl font-bold text-slate-800 text-emerald-600">
-                    {consultationFee ? consultationFee.toLocaleString('vi-VN') + ' đ' : 'THUẬN THẢO'} <span className="text-xs text-slate-400">/ 30 PHUT</span>
+                    {consultationFee ? consultationFee.toLocaleString('vi-VN') + ' đ' : 'THUẬN THẢO'} <span className="text-xs text-slate-400">/ 1 giờ</span>
                   </p>
                 </div>
               </div>
@@ -809,7 +811,7 @@ const LawyerDetail = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-amber-500/10 to-transparent translate-x-[-100%] group-hover/call:translate-x-[100%] transition-transform duration-1000" />
                 <div>
                   <p className="text-[9px] font-black uppercase tracking-[0.4em] text-amber-500 mb-1">
-                    Trực tuyến 30 phút
+                    Trực tuyến 1 giờ
                   </p>
                   <span className="text-3xl font-bold text-amber-500 tracking-tight">
                     {consultationFee?.toLocaleString('vi-VN')}đ

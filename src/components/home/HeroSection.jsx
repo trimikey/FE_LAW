@@ -71,7 +71,7 @@ const HeroSection = ({ isAuthenticated }) => {
           {slides[current].eyebrow}
         </span>
 
-        <h2 className="text-5xl md:text-8xl font-black mb-8 text-white tracking-tight leading-[1.1] max-w-5xl">
+        <h2 className="text-3xl md:text-8xl font-black mb-6 md:mb-8 text-white tracking-tight leading-tight md:leading-[1.1] max-w-5xl">
           {slides[current].title.split('&').map((part, i) => (
             <span key={i}>
               {part}
@@ -80,30 +80,30 @@ const HeroSection = ({ isAuthenticated }) => {
           ))}
         </h2>
 
-        <p className="text-lg md:text-xl mb-12 max-w-3xl mx-auto font-medium text-slate-200 leading-relaxed">
+        <p className="text-sm md:text-lg mb-8 md:mb-12 max-w-2xl mx-auto font-medium text-slate-200 leading-relaxed px-4 md:px-0">
           {slides[current].description}
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-6 justify-center">
+        <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center w-full max-w-xs sm:max-w-none">
           <Link
             to="/lawyer"
-            className="h-16 px-12 rounded-[24px] bg-amber-500 text-[#041837] font-black text-[11px] uppercase tracking-[0.2em] shadow-2xl shadow-amber-500/30 hover:bg-white transition-all flex items-center justify-center gap-3 active:scale-95"
+            className="h-12 md:h-16 px-8 md:px-12 rounded-xl md:rounded-[24px] bg-amber-500 text-[#041837] font-black text-[10px] md:text-[11px] uppercase tracking-[0.2em] shadow-2xl shadow-amber-500/30 hover:bg-white transition-all flex items-center justify-center gap-3 active:scale-95"
           >
-            <HiSearch size={20} />
+            <HiSearch size={18} />
             Khám phá kho luật sư
           </Link>
 
           <Link
             to="/contact"
-            className="h-16 px-12 rounded-[24px] bg-white/10 backdrop-blur-xl border-2 border-white/20 text-white font-black text-[11px] uppercase tracking-[0.2em] hover:bg-white hover:text-[#041837] transition-all flex items-center justify-center gap-3 active:scale-95"
+            className="h-12 md:h-16 px-8 md:px-12 rounded-xl md:rounded-[24px] bg-white/10 backdrop-blur-xl border-2 border-white/20 text-white font-black text-[10px] md:text-[11px] uppercase tracking-[0.2em] hover:bg-white hover:text-[#041837] transition-all flex items-center justify-center gap-3 active:scale-95"
           >
             Gửi yêu cầu tư vấn
-            <HiArrowRight size={20} />
+            <HiArrowRight size={18} />
           </Link>
         </div>
 
         {/* Floating elements hint */}
-        <div className="mt-16 animate-bounce opacity-40">
+        <div className="mt-12 md:mt-16 animate-bounce opacity-40">
           <div className="w-[1px] h-12 bg-gradient-to-b from-amber-500 to-transparent mx-auto"></div>
         </div>
       </div>
@@ -112,9 +112,9 @@ const HeroSection = ({ isAuthenticated }) => {
       <div className="absolute inset-x-0 bottom-12 z-20 px-8 flex justify-center items-center gap-8">
         <button
           onClick={prevSlide}
-          className="h-14 w-14 rounded-full border border-white/20 bg-white/5 backdrop-blur-md text-white flex items-center justify-center hover:bg-amber-500 hover:text-[#041837] hover:border-amber-500 transition-all opacity-0 group-hover:opacity-100"
+          className="h-12 w-12 md:h-14 md:w-14 rounded-full border border-white/20 bg-white/5 backdrop-blur-md text-white flex items-center justify-center hover:bg-amber-500 hover:text-[#041837] hover:border-amber-500 transition-all opacity-0 group-hover:opacity-100"
         >
-          <HiChevronLeft size={32} />
+          <HiChevronLeft size={24} />
         </button>
 
         {/* Dots indicators */}

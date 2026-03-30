@@ -27,7 +27,7 @@ const LawyerCard = ({ lawyer }) => {
     <div className="bg-white rounded-xl shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col md:flex-row group">
 
       {/* Left Column: Avatar & Social */}
-      <div className="md:w-64 bg-gray-50 p-6 flex flex-col items-center justify-center border-r border-gray-100">
+      <div className="md:w-64 bg-gray-50 p-6 flex flex-row md:flex-col items-center justify-around md:justify-center border-b md:border-b-0 md:border-r border-gray-100">
         <div className="relative mb-4">
           {/* Pro Badge (Mock) */}
           <span className="absolute -top-2 -right-2 bg-yellow-400 text-xs font-bold px-2 py-0.5 rounded shadow z-10 text-yellow-900 border border-yellow-200">
@@ -61,7 +61,7 @@ const LawyerCard = ({ lawyer }) => {
         <div className="flex items-start justify-between">
           <div>
             <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">LUẬT SƯ / CÔNG TY LUẬT</p>
-            <h3 className="text-2xl font-bold text-slate-800 hover:text-blue-700 transition">
+            <h3 className="text-xl md:text-2xl font-bold text-slate-800 hover:text-blue-700 transition">
               <Link to={`/lawyer/${lawyer.id}`}>{lawyer.user?.full_name?.toUpperCase()}</Link>
             </h3>
           </div>

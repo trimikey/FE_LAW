@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getLawyers } from "../services/api/lawyer.api";
 import LawyerCard from "../components/lawyer/LawyerCard";
 import LawyerFilter from "../components/lawyer/LawyerFilter";
@@ -46,7 +46,7 @@ const LawyerList = () => {
           <FeaturedLawyerSlider />
         </div>
 
-        <div className="sticky top-28 z-20 mt-6 rounded-[24px] border border-slate-200 bg-white/90 p-4 shadow-sm backdrop-blur">
+        <div className="mt-6 rounded-[24px] border border-slate-200 bg-white p-4 shadow-sm">
           <LawyerFilter onFilter={handleFilter} />
         </div>
 

@@ -567,7 +567,7 @@ const LawyerDashboard = () => {
           {activeTab === 'overview' && stats && (
             <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
               {/* Hero Banner Section */}
-              <div className="relative h-[480px] w-full overflow-hidden rounded-[50px] bg-[#041837] shadow-2xl">
+              <div className="relative h-64 md:h-[480px] w-full overflow-hidden rounded-3xl md:rounded-[50px] bg-[#041837] shadow-2xl">
                 <div className="absolute inset-0">
                   <img src={bannerImg} alt="Banner" className="h-full w-full object-cover opacity-30 mix-blend-overlay rotate-1 scale-110" />
                   <div className="absolute inset-0 bg-gradient-to-tr from-[#041837] via-transparent to-amber-500/10" />
@@ -575,25 +575,25 @@ const LawyerDashboard = () => {
                   <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-amber-500/10 blur-[120px]" />
                 </div>
 
-                <div className="relative z-10 flex h-full flex-col justify-center px-16">
-                  <div className="mb-6 flex items-center gap-3">
-                    <span className="h-px w-12 bg-amber-500/50" />
-                    <span className="text-xs font-black uppercase tracking-[0.4em] text-amber-500">Professional Lawyer Panel</span>
+                <div className="relative z-10 flex h-full flex-col justify-center px-6 md:px-16 text-center md:text-left">
+                  <div className="mb-4 md:mb-6 flex items-center justify-center md:justify-start gap-3">
+                    <span className="h-px w-8 md:w-12 bg-amber-500/50" />
+                    <span className="text-[10px] md:text-xs font-black uppercase tracking-[0.4em] text-amber-500">Professional Lawyer Panel</span>
                   </div>
-                  <h1 className="max-w-2xl text-6xl font-black leading-[1.1] tracking-tight text-white uppercase">
+                  <h1 className="max-w-2xl text-2xl md:text-6xl font-black leading-tight md:leading-[1.1] tracking-tight text-white uppercase">
                     Chào mừng trở lại,<br />
-                    <span className="text-amber-500 mt-2 block italic">Luật sư Hệ thống</span>
+                    <span className="text-amber-500 mt-1 md:mt-2 block italic">Luật sư Hệ thống</span>
                   </h1>
-                  <p className="mt-8 max-w-lg text-lg font-medium leading-relaxed text-slate-300">
-                    Hệ thống đã sẵn sàng. Bạn có <span className="text-white font-black underline decoration-amber-500 decoration-2 underline-offset-4">{stats.cases?.pending || 0} hồ sơ mới</span> đang chờ phê duyệt và <span className="text-white font-black underline decoration-blue-500 decoration-2 underline-offset-4">{consultations.length} lịch hẹn</span> trong hôm nay.
+                  <p className="mt-4 md:mt-8 max-w-lg text-sm md:text-lg font-medium leading-relaxed text-slate-300 mx-auto md:mx-0">
+                    Hệ thống đã sẵn sàng. Bạn có <span className="text-white font-black underline decoration-amber-500 decoration-2 underline-offset-4">{stats.cases?.pending || 0} hồ sơ</span> đang chờ và <span className="text-white font-black underline decoration-blue-500 decoration-2 underline-offset-4">{consultations.length} lịch hẹn</span> hôm nay.
                   </p>
 
-                  <div className="mt-12 flex gap-6">
-                    <button onClick={() => setActiveTab('cases')} className="group flex items-center gap-3 rounded-2xl bg-amber-500 px-8 py-5 text-sm font-black uppercase tracking-widest text-[#041837] shadow-xl transition hover:bg-white active:scale-95">
+                  <div className="mt-8 md:mt-12 flex flex-col sm:flex-row gap-4 md:gap-6 justify-center md:justify-start">
+                    <button onClick={() => setActiveTab('cases')} className="group flex items-center justify-center gap-3 rounded-xl md:rounded-2xl bg-amber-500 px-6 md:px-8 py-4 md:py-5 text-xs md:text-sm font-black uppercase tracking-widest text-[#041837] shadow-xl transition hover:bg-white active:scale-95">
                       Quản lý vụ việc
-                      <HiOutlineBriefcase className="h-5 w-5 transition group-hover:rotate-12" />
+                      <HiOutlineBriefcase className="h-4 w-4 md:h-5 md:w-5 transition group-hover:rotate-12" />
                     </button>
-                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/5 text-white backdrop-blur-xl border border-white/10">
+                    <div className="hidden sm:flex h-14 w-14 items-center justify-center rounded-2xl bg-white/5 text-white backdrop-blur-xl border border-white/10">
                       <HiOutlineChartBar className="h-6 w-6" />
                     </div>
                   </div>
@@ -614,14 +614,14 @@ const LawyerDashboard = () => {
                   { label: 'Tổng doanh thu', value: formatCurrency(stats.revenue?.total || 0), trend: 'Đã trừ 15% phí', icon: HiOutlineCurrencyDollar, color: 'text-emerald-600', bg: 'bg-emerald-50' },
                   { label: 'Lịch hẹn', value: consultations.length || 0, trend: 'Hôm nay', icon: HiOutlineClock, color: 'text-rose-600', bg: 'bg-rose-50' }
                 ].map((stat, i) => (
-                  <div key={i} className="group relative rounded-[40px] border border-slate-100 bg-white p-8 shadow-sm transition-all hover:-translate-y-2 hover:shadow-2xl">
-                    <div className={`mb-8 flex h-16 w-16 items-center justify-center rounded-3xl ${stat.bg} ${stat.color} transition-transform group-hover:scale-110 group-hover:rotate-6`}>
-                      <stat.icon className="h-8 w-8" />
+                  <div key={i} className="group relative rounded-3xl md:rounded-[40px] border border-slate-100 bg-white p-6 md:p-8 shadow-sm transition-all hover:-translate-y-2 hover:shadow-2xl">
+                    <div className={`mb-6 md:mb-8 flex h-12 w-12 md:h-16 md:w-16 items-center justify-center rounded-2xl md:rounded-3xl ${stat.bg} ${stat.color} transition-transform group-hover:scale-110 group-hover:rotate-6`}>
+                      <stat.icon className="h-6 w-6 md:h-8 md:h-8" />
                     </div>
                     <div>
                       <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">{stat.label}</p>
-                      <p className="mt-3 text-3xl font-black tracking-tight text-[#041837]">{stat.value}</p>
-                      <div className="mt-6 flex items-center gap-2 text-xs font-bold text-slate-400">
+                      <p className="mt-2 md:mt-3 text-xl md:text-3xl font-black tracking-tight text-[#041837]">{stat.value}</p>
+                      <div className="mt-4 md:mt-6 flex items-center gap-2 text-[10px] md:text-xs font-bold text-slate-400">
                         <span className={`h-1.5 w-1.5 rounded-full ${stat.color} animate-pulse`} />
                         {stat.trend}
                       </div>
@@ -632,7 +632,7 @@ const LawyerDashboard = () => {
 
               {/* Charts Row */}
               <div className="grid grid-cols-1 gap-8 xl:grid-cols-[minmax(0,2fr)_400px]">
-                <div className="rounded-[40px] border border-white bg-white p-10 shadow-sm">
+                <div className="rounded-3xl md:rounded-[40px] border border-white bg-white p-6 md:p-10 shadow-sm">
                   <div className="mb-10 flex items-center justify-between">
                     <div>
                       <h3 className="text-2xl font-black text-[#041837] tracking-tight">Biểu đồ tăng trưởng</h3>
@@ -668,7 +668,7 @@ const LawyerDashboard = () => {
                   </div>
                 </div>
 
-                <div className="rounded-[40px] border border-white bg-white p-10 shadow-sm">
+                <div className="rounded-3xl md:rounded-[40px] border border-white bg-white p-6 md:p-10 shadow-sm">
                   <h3 className="text-2xl font-black text-[#041837] tracking-tight">Tỉ lệ hồ sơ</h3>
                   <div className="mt-8 flex flex-col items-center">
                     <div className="relative h-64 w-full">
@@ -709,7 +709,7 @@ const LawyerDashboard = () => {
               </div>
 
               {/* Recent Orders Table */}
-              <div className="rounded-[40px] border border-white bg-white p-10 shadow-sm">
+              <div className="rounded-3xl md:rounded-[40px] border border-white bg-white p-6 md:p-10 shadow-sm">
                 <div className="mb-10 flex items-center justify-between">
                   <div>
                     <h3 className="text-2xl font-black text-[#041837] tracking-tight">Giao dịch gần đây</h3>
@@ -1027,13 +1027,13 @@ const LawyerDashboard = () => {
 
           {activeTab === 'inquiries' && (
             <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 px-4">
                 <div>
                   <p className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">Customer Leads</p>
-                  <h2 className="text-4xl font-black text-[#041837] tracking-tight uppercase mt-2">Yêu cầu tư vấn & Liên hệ</h2>
+                  <h2 className="text-2xl md:text-4xl font-black text-[#041837] tracking-tight uppercase mt-2">Yêu cầu tư vấn & Liên hệ</h2>
                 </div>
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-500 text-[#041837] shadow-xl">
-                  <HiUserGroup className="h-6 w-6" />
+                <div className="flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-2xl bg-amber-500 text-[#041837] shadow-xl self-start md:self-auto">
+                  <HiUserGroup className="h-5 w-5 md:h-6 md:w-6" />
                 </div>
               </div>
 
@@ -1049,28 +1049,28 @@ const LawyerDashboard = () => {
                     <p className="text-slate-300 font-bold uppercase tracking-[0.2em] text-[10px]">Chưa có yêu cầu tư vấn nào mới</p>
                   </div>
                 ) : (
-                  <div className="rounded-[40px] border border-white bg-white p-10 shadow-sm overflow-hidden">
+                  <div className="rounded-3xl md:rounded-[40px] border border-white bg-white p-6 md:p-10 shadow-sm overflow-hidden">
                     <table className="min-w-full text-left">
                       <thead>
-                        <tr className="border-b border-slate-100 text-xs font-black uppercase tracking-[0.2em] text-slate-400">
-                          <th className="pb-6 pr-4">Khách hàng</th>
-                          <th className="pb-6 pr-4">Thông tin liên hệ</th>
-                          <th className="pb-6 pr-4">Nội dung yêu cầu</th>
-                          <th className="pb-6 pr-4">Thời gian</th>
-                          <th className="pb-6">Trạng thái</th>
+                        <tr className="border-b border-slate-100 text-[9px] md:text-xs font-black uppercase tracking-[0.2em] text-slate-400">
+                          <th className="pb-6 pr-4 min-w-[150px]">Khách hàng</th>
+                          <th className="pb-6 pr-4 min-w-[180px]">Thông tin liên hệ</th>
+                          <th className="pb-6 pr-4 min-w-[250px]">Nội dung yêu cầu</th>
+                          <th className="pb-6 pr-4 min-w-[120px]">Thời gian</th>
+                          <th className="pb-6 min-w-[140px]">Trạng thái</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-slate-50">
                         {inquiries.map((inquiry) => (
                           <tr key={inquiry.id} className="group transition hover:bg-slate-50/50">
-                            <td className="py-8 pr-4">
-                              <div className="font-black text-[#041837] uppercase tracking-tight text-lg mb-1">{inquiry.full_name}</div>
+                            <td className="py-6 md:py-8 pr-4">
+                              <div className="font-black text-[#041837] uppercase tracking-tight text-base md:text-lg mb-1 break-words max-w-[140px] md:max-w-none">{inquiry.full_name}</div>
                               <div className="text-[10px] font-black uppercase tracking-widest text-slate-400">Customer Lead</div>
                             </td>
-                            <td className="py-8 pr-4">
+                            <td className="py-6 md:py-8 pr-4">
                               <div className="flex flex-col gap-1">
-                                <div className="text-sm font-bold text-slate-600">{inquiry.email}</div>
-                                <div className="text-sm font-black text-amber-600">{inquiry.phone}</div>
+                                <div className="text-xs md:text-sm font-bold text-slate-600 truncate max-w-[160px] md:max-w-none">{inquiry.email}</div>
+                                <div className="text-xs md:text-sm font-black text-amber-600">{inquiry.phone}</div>
                               </div>
                             </td>
                             <td className="py-8 pr-4 max-w-md">
@@ -1194,7 +1194,7 @@ const LawyerDashboard = () => {
                     <span className="h-px w-8 bg-amber-500" />
                     <span className="text-[10px] font-black uppercase tracking-[0.4em] text-amber-500">Resource Management</span>
                   </div>
-                  <h2 className="text-4xl font-black text-[#041837] tracking-tight uppercase">Quản lý lịch tư vấn</h2>
+                  <h2 className="text-2xl md:text-4xl font-black text-[#041837] tracking-tight uppercase">Quản lý lịch tư vấn</h2>
                 </div>
                 <div className="flex items-center gap-4 bg-white p-2 rounded-2xl border border-slate-100 shadow-sm">
                   <div className="px-6 py-2 text-center border-r border-slate-100">
@@ -1570,7 +1570,7 @@ const LawyerDashboard = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">Financial History</p>
-                  <h2 className="text-4xl font-black text-[#041837] tracking-tight uppercase mt-2">Lịch sử giao dịch</h2>
+                  <h2 className="text-2xl md:text-4xl font-black text-[#041837] tracking-tight uppercase mt-2">Lịch sử giao dịch</h2>
                 </div>
                 <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-500 text-white shadow-xl">
                   <HiOutlineCurrencyDollar className="h-6 w-6" />

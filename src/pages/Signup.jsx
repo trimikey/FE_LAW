@@ -174,36 +174,36 @@ const Signup = () => {
         </div>
 
         <div className="relative z-10 text-center px-6 animate-in fade-in slide-in-from-top-10 duration-1000">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-amber-500 rounded-2xl mb-6 shadow-2xl">
-            <HiIdentification className="h-8 w-8 text-[#041837]" />
+          <div className="inline-flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-amber-500 rounded-2xl mb-4 md:mb-6 shadow-2xl">
+            <HiIdentification className="h-6 w-6 md:h-8 md:h-8 text-[#041837]" />
           </div>
-          <h1 className="text-4xl md:text-6xl font-black text-white tracking-tight mb-4">Tham gia cùng Hiểu Luật</h1>
-          <p className="text-amber-500 font-bold uppercase tracking-[0.3em] text-xs">Cùng nhau kiến tạo giá trị pháp lý vững bền</p>
+          <h1 className="text-3xl md:text-6xl font-black text-white tracking-tight mb-4">Tham gia cùng Hiểu Luật</h1>
+          <p className="text-amber-500 font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] text-[10px] md:text-xs">Cùng nhau kiến tạo giá trị pháp lý vững bền</p>
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-6 -mt-24 relative z-20 pb-20">
-        <div className="bg-white/90 backdrop-blur-2xl rounded-[48px] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.15)] border border-white/50 overflow-hidden">
+      <div className="max-w-4xl mx-auto px-4 md:px-6 -mt-16 md:-mt-24 relative z-20 pb-20">
+        <div className="bg-white/90 backdrop-blur-2xl rounded-3xl md:rounded-[48px] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.15)] border border-white/50 overflow-hidden">
 
           {/* Account Type Selector */}
-          <div className="grid grid-cols-2 p-3 bg-slate-50/50 m-8 rounded-[32px] border border-slate-100">
+          <div className="grid grid-cols-2 p-2 md:p-3 bg-slate-50/50 m-4 md:m-8 rounded-2xl md:rounded-[32px] border border-slate-100">
             <button
               onClick={() => handleAccountTypeChange('client')}
-              className={`flex flex-col items-center py-6 rounded-[28px] transition-all ${accountType === 'client' ? 'bg-[#041837] text-white shadow-2xl scale-[1.02]' : 'text-slate-400 hover:text-[#041837] hover:bg-white'}`}
+              className={`flex flex-col items-center py-4 md:py-6 rounded-xl md:rounded-[28px] transition-all ${accountType === 'client' ? 'bg-[#041837] text-white shadow-2xl scale-[1.02]' : 'text-slate-400 hover:text-[#041837] hover:bg-white'}`}
             >
-              <HiUser className={`h-7 w-7 mb-2 ${accountType === 'client' ? 'text-amber-500' : ''}`} />
-              <span className="font-black uppercase tracking-widest text-[10px]">Tư cách Khách hàng</span>
+              <HiUser className={`h-6 w-6 md:h-7 md:w-7 mb-2 ${accountType === 'client' ? 'text-amber-500' : ''}`} />
+              <span className="font-black uppercase tracking-widest text-[9px] md:text-[10px]">Khách hàng</span>
             </button>
             <button
               onClick={() => handleAccountTypeChange('lawyer')}
-              className={`flex flex-col items-center py-6 rounded-[28px] transition-all ${accountType === 'lawyer' ? 'bg-[#041837] text-white shadow-2xl scale-[1.02]' : 'text-slate-400 hover:text-[#041837] hover:bg-white'}`}
+              className={`flex flex-col items-center py-4 md:py-6 rounded-xl md:rounded-[28px] transition-all ${accountType === 'lawyer' ? 'bg-[#041837] text-white shadow-2xl scale-[1.02]' : 'text-slate-400 hover:text-[#041837] hover:bg-white'}`}
             >
-              <HiIdentification className={`h-7 w-7 mb-2 ${accountType === 'lawyer' ? 'text-amber-500' : ''}`} />
-              <span className="font-black uppercase tracking-widest text-[10px]">Tư cách Luật sư</span>
+              <HiIdentification className={`h-6 w-6 md:h-7 md:w-7 mb-2 ${accountType === 'lawyer' ? 'text-amber-500' : ''}`} />
+              <span className="font-black uppercase tracking-widest text-[9px] md:text-[10px]">Luật sư</span>
             </button>
           </div>
 
-          <form className="px-10 md:px-20 pb-16 space-y-8" onSubmit={handleSubmit}>
+          <form className="px-6 md:px-20 pb-12 md:pb-16 space-y-6 md:space-y-8" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-2">
                 <label className="text-[10px] font-black text-[#041837] uppercase tracking-[0.2em] ml-2">Họ và tên đầy đủ</label>
@@ -303,9 +303,9 @@ const Signup = () => {
 
             {/* Lawyer Section */}
             {accountType === 'lawyer' && (
-              <div className="pt-10 border-t border-slate-50 space-y-8 animate-in fade-in duration-500">
-                <h3 className="text-2xl font-black text-[#041837] tracking-tight">Hồ sơ nghiệp vụ luật sư</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="pt-8 md:pt-10 border-t border-slate-50 space-y-6 md:space-y-8 animate-in fade-in duration-500">
+                <h3 className="text-xl md:text-2xl font-black text-[#041837] tracking-tight">Hồ sơ nghiệp vụ luật sư</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                   <div className="space-y-2">
                     <label className="text-[10px] font-black text-[#041837] uppercase tracking-[0.2em] ml-2">Số thẻ luật sư</label>
                     <input
@@ -377,7 +377,7 @@ const Signup = () => {
                       <label className="text-[10px] font-black text-[#041837] uppercase tracking-[0.2em] ml-2">Lĩnh vực chuyên môn doanh nghiệp</label>
                       <span className="text-[9px] font-bold text-slate-400">Chọn ít nhất một lĩnh vực</span>
                     </div>
-                    <div className="flex flex-wrap gap-2 p-6 bg-slate-50/50 rounded-[32px] border-2 border-slate-100">
+                    <div className="flex flex-wrap gap-2 p-4 md:p-6 bg-slate-50/50 rounded-2xl md:rounded-[32px] border-2 border-slate-100">
                       {specialtiesList.map(item => {
                         const isSelected = formData.lawyerInfo.specialties?.includes(item);
                         return (

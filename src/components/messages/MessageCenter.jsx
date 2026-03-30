@@ -1,4 +1,4 @@
-﻿import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import {
@@ -66,6 +66,7 @@ const MessageCenter = ({ onRefresh }) => {
   const [isPartnerTyping, setIsPartnerTyping] = useState(false);
   const [relatedCase, setRelatedCase] = useState(null);
   const [sendingMessage, setSendingMessage] = useState(false);
+  const [isMobileConversationOpen, setIsMobileConversationOpen] = useState(false);
 
   const socket = useSocket();
   const messagesEndRef = useRef(null);
@@ -198,6 +199,9 @@ const MessageCenter = ({ onRefresh }) => {
       fetchHistory(selectedPartnerId);
       loadCaseContext(selectedPartnerId);
       markAsRead(selectedPartnerId);
+      if (window.innerWidth < 768) {
+        setIsMobileConversationOpen(true);
+      }
     }
   }, [selectedPartnerId, fetchHistory, loadCaseContext, markAsRead]);
 
@@ -219,9 +223,9 @@ const MessageCenter = ({ onRefresh }) => {
   };
 
   return (
-    <div className="flex h-full min-h-[820px] overflow-hidden rounded-[40px] border border-slate-100 bg-white shadow-2xl animate-in fade-in duration-700">
+    <div className="flex h-[calc(100vh-140px)] md:h-[820px] overflow-hidden rounded-2xl md:rounded-[40px] border border-slate-100 bg-white shadow-2xl animate-in fade-in duration-700 relative">
       {/* Sidebar List */}
-      <aside className="flex w-[340px] flex-col border-r border-slate-50 bg-[#F8FAFC]">
+      <aside className={`flex w-full md:w-[340px] flex-col border-r border-slate-50 bg-[#F8FAFC] transition-all duration-300 ${isMobileConversationOpen ? 'hidden md:flex' : 'flex'}`}>
         <div className="p-8">
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-3xl font-black tracking-tight text-[#041837]">Tin nhắn</h2>
@@ -266,18 +270,24 @@ const MessageCenter = ({ onRefresh }) => {
       </aside>
 
       {/* Main Chat Area */}
-      <main className="flex flex-1 flex-col bg-white">
+      <main className={`flex flex-1 flex-col bg-white transition-all duration-300 ${!isMobileConversationOpen ? 'hidden md:flex' : 'flex'}`}>
         {selectedConversation ? (
           <>
-            <header className="flex h-24 items-center justify-between border-b border-slate-50 px-10 bg-white/50 backdrop-blur-xl">
-              <div className="flex items-center gap-5">
-                <div className="relative h-14 w-14 rounded-[20px] border-2 border-slate-50 bg-slate-900 shadow-xl flex items-center justify-center overflow-hidden">
-                  {selectedConversation.partnerAvatar ? <img src={selectedConversation.partnerAvatar} alt="" className="h-full w-full object-cover" /> : <span className="text-base font-black text-amber-500">{getInitials(selectedConversation.partnerName)}</span>}
-                  <div className="absolute bottom-1 right-1 h-3.5 w-3.5 rounded-full border-[3px] border-slate-900 bg-emerald-500 shadow-sm animate-pulse" />
+            <header className="flex h-20 md:h-24 items-center justify-between border-b border-slate-50 px-4 md:px-10 bg-white/50 backdrop-blur-xl">
+              <div className="flex items-center gap-3 md:gap-5">
+                <button 
+                  onClick={() => setIsMobileConversationOpen(false)}
+                  className="md:hidden p-2 -ml-2 text-slate-400 hover:text-amber-500"
+                >
+                  <HiOutlineArrowRight className="rotate-180 h-6 w-6" />
+                </button>
+                <div className="relative h-10 w-10 md:h-14 md:w-14 rounded-lg md:rounded-[20px] border-2 border-slate-50 bg-slate-900 shadow-xl flex items-center justify-center overflow-hidden">
+                  {selectedConversation.partnerAvatar ? <img src={selectedConversation.partnerAvatar} alt="" className="h-full w-full object-cover" /> : <span className="text-xs md:text-base font-black text-amber-500">{getInitials(selectedConversation.partnerName)}</span>}
+                  <div className="absolute bottom-1 right-1 h-2 w-2 md:h-3.5 md:w-3.5 rounded-full border-[2px] md:border-[3px] border-slate-900 bg-emerald-500 shadow-sm animate-pulse" />
                 </div>
                 <div>
-                  <h2 className="text-xl font-black text-[#041837] tracking-tight">{selectedConversation.partnerName}</h2>
-                  <p className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-emerald-500 mt-0.5">
+                  <h2 className="text-sm md:text-xl font-black text-[#041837] tracking-tight truncate max-w-[120px] md:max-w-none">{selectedConversation.partnerName}</h2>
+                  <p className="flex items-center gap-2 text-[8px] md:text-[10px] font-black uppercase tracking-[0.2em] text-emerald-500 mt-0.5">
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
                     Sẵn sàng hỗ trợ
                   </p>
@@ -293,14 +303,14 @@ const MessageCenter = ({ onRefresh }) => {
               </div>
             </header>
 
-            <div className="flex-1 overflow-y-auto bg-slate-50/30 p-10">
-              <div className="space-y-10">
+            <div className="flex-1 overflow-y-auto bg-slate-50/30 p-4 md:p-10">
+              <div className="space-y-6 md:space-y-10">
                 {timelineItems.map((item) => {
-                  if (item.type === 'divider') return <div key={item.id} className="flex justify-center my-6"><span className="rounded-xl bg-white/80 backdrop-blur-md px-6 py-2.5 text-[9px] font-black uppercase tracking-[0.3em] text-slate-300 shadow-sm border border-slate-50">{item.label}</span></div>;
+                  if (item.type === 'divider') return <div key={item.id} className="flex justify-center my-6"><span className="rounded-xl bg-white/80 backdrop-blur-md px-4 md:px-6 py-2 text-[8px] md:text-[9px] font-black uppercase tracking-[0.3em] text-slate-300 shadow-sm border border-slate-50">{item.label}</span></div>;
                   const m = item.message; const isOwn = Number(m.sender_id) === currentUserId;
                   return (
                     <div key={item.id} className={`flex ${isOwn ? 'justify-end' : 'justify-start'} animate-in slide-in-from-bottom-2`}>
-                      <div className={`flex max-w-[80%] gap-4 ${isOwn ? 'flex-row-reverse' : 'flex-row'}`}>
+                      <div className={`flex max-w-[90%] md:max-w-[80%] gap-3 md:gap-4 ${isOwn ? 'flex-row-reverse' : 'flex-row'}`}>
                         {!isOwn && (
                           <div className="mt-1 h-10 w-10 shrink-0 rounded-xl bg-slate-900 border-2 border-white shadow-xl flex items-center justify-center overflow-hidden">
                             {selectedConversation.partnerAvatar ? <img src={selectedConversation.partnerAvatar} alt="" className="h-full w-full object-cover" /> : <span className="text-[10px] font-black text-amber-500">{getInitials(selectedConversation.partnerName)}</span>}
@@ -332,26 +342,25 @@ const MessageCenter = ({ onRefresh }) => {
               </div>
             </div>
 
-            <footer className="p-8 bg-white/50 backdrop-blur-xl border-t border-slate-50">
-              <div className="flex items-center gap-5 rounded-[32px] bg-slate-50 p-3.5 focus-within:ring-8 focus-within:ring-amber-500/5 focus-within:bg-white focus-within:shadow-[0_20px_60px_-15px_rgba(245,179,1,0.1)] transition-all border-2 border-transparent focus-within:border-amber-500/20">
-                <div className="flex items-center gap-1 pl-2">
-                  <button className="p-3 text-slate-300 hover:text-amber-500 transition-colors"><HiOutlinePlusCircle size={28} /></button>
-                  <button className="p-3 text-slate-300 hover:text-amber-500 transition-colors"><HiOutlinePaperClip size={28} /></button>
+            <footer className="p-4 md:p-8 bg-white/50 backdrop-blur-xl border-t border-slate-50">
+              <div className="flex items-center gap-2 md:gap-5 rounded-[24px] md:rounded-[32px] bg-slate-50 p-2 md:p-3.5 focus-within:ring-8 focus-within:ring-amber-500/5 focus-within:bg-white focus-within:shadow-[0_20px_60px_-15px_rgba(245,179,1,0.1)] transition-all border-2 border-transparent focus-within:border-amber-500/20">
+                <div className="flex items-center gap-0 md:gap-1 pl-1">
+                  <button className="p-2 md:p-3 text-slate-300 hover:text-amber-500 transition-colors"><HiOutlinePlusCircle size={24} /></button>
                 </div>
                 <input
                   type="text"
-                  placeholder="Trao đổi nghiệp vụ pháp lý tại đây..."
+                  placeholder="Trao đổi nghiệp vụ..."
                   value={newMessage}
                   onChange={(e) => setNewMessage(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
-                  className="flex-1 bg-transparent py-4 text-sm font-bold text-[#041837] outline-none placeholder:text-slate-300"
+                  className="flex-1 bg-transparent py-3 md:py-4 text-xs md:text-sm font-bold text-[#041837] outline-none placeholder:text-slate-300"
                 />
                 <button
                   onClick={handleSendMessage}
                   disabled={!newMessage.trim() || sendingMessage}
-                  className="flex h-14 w-14 items-center justify-center rounded-[20px] bg-amber-500 text-[#041837] shadow-2xl shadow-amber-500/30 transition-all hover:bg-amber-600 active:scale-95 disabled:opacity-50"
+                  className="flex h-10 w-10 md:h-14 md:w-14 shrink-0 items-center justify-center rounded-xl md:rounded-[20px] bg-amber-500 text-[#041837] shadow-xl md:shadow-2xl shadow-amber-500/30 transition-all hover:bg-amber-600 active:scale-95 disabled:opacity-50"
                 >
-                  <HiPaperAirplane size={24} className="rotate-45 -translate-y-0.5 -translate-x-0.5" />
+                  <HiPaperAirplane size={20} className="rotate-45" />
                 </button>
               </div>
               <div className="mt-6 flex items-center justify-center gap-6">

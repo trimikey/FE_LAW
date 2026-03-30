@@ -5,16 +5,16 @@ import { MdHistory } from 'react-icons/md';
 const formatMoney = (value) => `${Number(value || 0).toLocaleString('vi-VN')} đ`;
 
 const StatCard = ({ label, value, trendValue, icon: Icon, colorClass }) => (
-    <div className="bg-white rounded-[32px] p-6 border border-slate-100 shadow-sm relative overflow-hidden group hover:shadow-2xl transition-all duration-500">
+    <div className="bg-white rounded-3xl md:rounded-[32px] p-5 md:p-6 border border-slate-100 shadow-sm relative overflow-hidden group hover:shadow-2xl transition-all duration-500">
         <div className={`absolute top-0 right-0 p-6 opacity-5 transform group-hover:scale-110 transition-transform ${colorClass}`}>
             <Icon className="h-16 w-16" />
         </div>
         <div className="relative z-10">
-            <div className="flex items-center gap-2 mb-4">
+            <div className="flex items-center gap-2 mb-3 md:mb-4">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 whitespace-nowrap">{label}</span>
+                <span className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-slate-400 whitespace-nowrap">{label}</span>
             </div>
-            <h3 className="text-2xl font-black text-[#041837] mb-2">{value}</h3>
+            <h3 className="text-xl md:text-2xl font-black text-[#041837] mb-2">{value}</h3>
             <div className="flex items-center gap-1">
                 <HiTrendingUp className="text-emerald-500" />
                 <span className="text-[10px] font-black text-emerald-500">+{trendValue}%</span>
@@ -49,21 +49,21 @@ const AdminOverviewTab = ({ stats, pendingLawyers, setActiveTab, setSelectedLawy
     const revenueTrend = calculateTrend(chartData, 'revenue');
 
     return (
-        <div className="space-y-10 animate-in fade-in duration-700">
+        <div className="space-y-6 md:space-y-10 animate-in fade-in duration-700">
             {/* Header Banner */}
-            <div className="relative overflow-hidden rounded-[50px] bg-[#041837] text-white shadow-2xl p-12">
+            <div className="relative overflow-hidden rounded-[32px] md:rounded-[50px] bg-[#041837] text-white shadow-2xl p-6 md:p-12 text-center md:text-left">
                 <div className="absolute inset-0 opacity-10">
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 via-transparent to-amber-500/20" />
                 </div>
                 <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
                     <div>
-                        <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-emerald-500/20 px-4 py-1.5 backdrop-blur-md">
+                        <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-emerald-500/20 px-3 md:px-4 py-1 md:py-1.5 backdrop-blur-md">
                             <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
-                            <span className="text-[10px] font-black uppercase tracking-widest text-emerald-300">Hệ thống đang hoạt động tốt</span>
+                            <span className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-emerald-300">Hệ thống ổn định</span>
                         </div>
-                        <h1 className="text-4xl font-black tracking-tight mb-4 uppercase">Tổng quan <span className="text-amber-500">Hệ thống</span></h1>
-                        <p className="text-slate-400 font-medium leading-relaxed max-w-xl">
-                            Chào mừng quay lại, Quản trị viên. Dưới đây là các chỉ số vận hành quan trọng của nền tảng Hiểu Luật.
+                        <h1 className="text-2xl md:text-4xl font-black tracking-tight mb-4 uppercase">Tổng quan <span className="text-amber-500">Hệ thống</span></h1>
+                        <p className="text-slate-400 text-sm md:text-base font-medium leading-relaxed max-w-xl text-center md:text-left">
+                            Chào mừng quay lại, Quản trị viên. Dưới đây là các chỉ số vận hành quan trọng.
                         </p>
                     </div>
                 </div>
@@ -109,12 +109,12 @@ const AdminOverviewTab = ({ stats, pendingLawyers, setActiveTab, setSelectedLawy
             </div>
 
             {/* Main Charts Area */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-                <div className="lg:col-span-2 bg-white p-10 rounded-[40px] border border-slate-100 shadow-sm relative overflow-hidden">
-                    <div className="flex justify-between items-center mb-10">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-10">
+                <div className="lg:col-span-2 bg-white p-6 md:p-10 rounded-3xl md:rounded-[40px] border border-slate-100 shadow-sm relative overflow-hidden">
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-10">
                         <div>
-                            <h2 className="text-2xl font-black text-[#041837] uppercase tracking-tight">Doanh thu 6 tháng</h2>
-                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">Xu hướng tăng trưởng tài chính</p>
+                            <h2 className="text-xl md:text-2xl font-black text-[#041837] uppercase tracking-tight">Doanh thu 6 tháng</h2>
+                            <p className="text-[9px] md:text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">Xu hướng tăng trưởng tài chính</p>
                         </div>
                         <div className="flex items-center gap-4">
                             <div className="flex items-center gap-2">
@@ -182,7 +182,7 @@ const AdminOverviewTab = ({ stats, pendingLawyers, setActiveTab, setSelectedLawy
                     </div>
                 </div>
 
-                <div className="bg-[#041837] p-10 rounded-[40px] text-white shadow-2xl relative overflow-hidden group">
+                <div className="bg-[#041837] p-6 md:p-10 rounded-3xl md:rounded-[40px] text-white shadow-2xl relative overflow-hidden group">
                     <div className="absolute bottom-0 right-0 p-10 opacity-5 transform group-hover:scale-110 transition-transform">
                         <HiLightningBolt className="h-64 w-64" />
                     </div>

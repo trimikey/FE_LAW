@@ -52,13 +52,13 @@ const Login = () => {
 
         {/* LOGIN FORM CARD */}
         <div className="relative z-10 w-full max-w-xl px-6 py-12 animate-in fade-in slide-in-from-bottom-8 duration-1000">
-          <div className="bg-white/80 backdrop-blur-2xl p-10 md:p-16 rounded-[48px] shadow-[0_20px_80px_-15px_rgba(0,0,0,0.3)] border border-white/20">
-            <div className="text-center mb-12">
-              <div className="inline-flex items-center justify-center w-20 h-20 bg-[#041837] rounded-3xl mb-6 shadow-2xl transform hover:rotate-6 transition-transform">
-                <span className="text-3xl font-black text-amber-500">H</span>
+          <div className="bg-white/80 backdrop-blur-2xl p-6 md:p-16 rounded-3xl md:rounded-[48px] shadow-[0_20px_80px_-15px_rgba(0,0,0,0.3)] border border-white/20">
+            <div className="text-center mb-8 md:mb-12">
+              <div className="inline-flex items-center justify-center w-16 h-16 md:w-20 md:h-20 bg-[#041837] rounded-2xl md:rounded-3xl mb-4 md:mb-6 shadow-2xl transform hover:rotate-6 transition-transform">
+                <span className="text-2xl md:text-3xl font-black text-amber-500">H</span>
               </div>
-              <h2 className="text-4xl font-black text-[#041837] tracking-tight mb-3">Chào mừng trở lại</h2>
-              <p className="text-slate-500 font-bold uppercase tracking-widest text-[10px]">Đăng nhập để tiếp tục đồng hành cùng Hiểu Luật</p>
+              <h2 className="text-3xl md:text-4xl font-black text-[#041837] tracking-tight mb-3">Chào mừng trở lại</h2>
+              <p className="text-slate-500 font-bold uppercase tracking-widest text-[8px] md:text-[10px]">Đăng nhập để tiếp tục đồng hành cùng Hiểu Luật</p>
             </div>
 
             <form className="space-y-6" onSubmit={handleSubmit}>

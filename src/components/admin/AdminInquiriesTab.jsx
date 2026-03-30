@@ -8,13 +8,13 @@ const AdminInquiriesTab = ({ inquiries, pagination, loading, onPageChange }) => 
 
     return (
         <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            <div className="flex items-center justify-between px-4">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 px-4">
                 <div>
                     <p className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">Customer Outreach</p>
-                    <h2 className="text-4xl font-black text-[#041837] tracking-tight uppercase mt-2">Yêu cầu tư vấn hệ thống</h2>
+                    <h2 className="text-2xl md:text-4xl font-black text-[#041837] tracking-tight uppercase mt-2">Yêu cầu tư vấn hệ thống</h2>
                 </div>
-                <div className="flex h-16 w-16 items-center justify-center rounded-[24px] bg-[#041837] text-amber-500 shadow-2xl">
-                    <HiUserGroup size={28} />
+                <div className="flex h-12 w-12 md:h-16 md:w-16 items-center justify-center rounded-2xl md:rounded-[24px] bg-[#041837] text-amber-500 shadow-2xl self-start md:self-auto">
+                    <HiUserGroup size={24} className="md:w-7 md:h-7" />
                 </div>
             </div>
 
@@ -28,12 +28,12 @@ const AdminInquiriesTab = ({ inquiries, pagination, loading, onPageChange }) => 
                 <div className="overflow-x-auto">
                     <table className="min-w-full text-left">
                         <thead>
-                            <tr className="border-b border-slate-100 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-                                <th className="px-10 py-8">Khách hàng</th>
-                                <th className="px-10 py-8">Liên hệ</th>
-                                <th className="px-10 py-8">Nội dung yêu cầu</th>
-                                <th className="px-10 py-8">Trạng thái</th>
-                                <th className="px-10 py-8">Xử lý bởi</th>
+                            <tr className="border-b border-slate-100 text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
+                                <th className="px-4 md:px-10 py-4 md:py-8 min-w-[150px]">Khách hàng</th>
+                                <th className="px-4 md:px-10 py-4 md:py-8 min-w-[180px]">Liên hệ</th>
+                                <th className="px-4 md:px-10 py-4 md:py-8 min-w-[250px]">Nội dung yêu cầu</th>
+                                <th className="px-4 md:px-10 py-4 md:py-8 min-w-[140px]">Trạng thái</th>
+                                <th className="px-4 md:px-10 py-4 md:py-8 min-w-[160px]">Xử lý bởi</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-50">
@@ -46,31 +46,31 @@ const AdminInquiriesTab = ({ inquiries, pagination, loading, onPageChange }) => 
                             ) : (
                                 inquiries.map((inquiry) => (
                                     <tr key={inquiry.id} className="group hover:bg-slate-50/50 transition-all duration-300">
-                                        <td className="px-10 py-8">
-                                            <div className="font-black text-[#041837] uppercase tracking-tight text-lg">{inquiry.full_name}</div>
-                                            <div className="flex items-center gap-2 mt-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                                        <td className="px-4 md:px-10 py-6 md:py-8">
+                                            <div className="font-black text-[#041837] uppercase tracking-tight text-base md:text-lg break-words max-w-[140px] md:max-w-none">{inquiry.full_name}</div>
+                                            <div className="flex items-center gap-2 mt-2 text-[9px] md:text-[10px] font-bold text-slate-400 uppercase tracking-widest">
                                                 <HiClock />
                                                 <span>{new Date(inquiry.created_at).toLocaleDateString('vi-VN')}</span>
                                             </div>
                                         </td>
-                                        <td className="px-10 py-8">
+                                        <td className="px-4 md:px-10 py-6 md:py-8">
                                             <div className="space-y-1">
-                                                <div className="flex items-center gap-2 text-sm font-medium text-slate-600">
-                                                    <HiMail className="text-slate-300" />
-                                                    <span>{inquiry.email}</span>
+                                                <div className="flex items-center gap-2 text-xs md:text-sm font-medium text-slate-600">
+                                                    <HiMail className="text-slate-300 shrink-0" />
+                                                    <span className="truncate max-w-[140px] md:max-w-none">{inquiry.email}</span>
                                                 </div>
-                                                <div className="flex items-center gap-2 text-sm font-black text-amber-600">
-                                                    <HiPhone className="text-amber-400" />
+                                                <div className="flex items-center gap-2 text-xs md:text-sm font-black text-amber-600">
+                                                    <HiPhone className="text-amber-400 shrink-0" />
                                                     <span>{inquiry.phone}</span>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="px-10 py-8 max-w-md">
-                                            <p className="text-sm text-slate-500 font-medium leading-relaxed italic line-clamp-2 group-hover:line-clamp-none transition-all duration-500">
+                                        <td className="px-4 md:px-10 py-6 md:py-8 max-w-xs md:max-w-md">
+                                            <p className="text-xs md:text-sm text-slate-500 font-medium leading-relaxed italic line-clamp-2 group-hover:line-clamp-none transition-all duration-500">
                                                 "{inquiry.content}"
                                             </p>
                                         </td>
-                                        <td className="px-10 py-8">
+                                        <td className="px-4 md:px-10 py-6 md:py-8">
                                             <span className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-[10px] font-black uppercase tracking-wider ${inquiry.status === 'pending' ? 'bg-amber-50 text-amber-600 border border-amber-100' :
                                                     inquiry.status === 'contacted' ? 'bg-blue-50 text-blue-600 border border-blue-100' :
                                                         'bg-emerald-50 text-emerald-600 border border-emerald-100'
@@ -80,7 +80,7 @@ const AdminInquiriesTab = ({ inquiries, pagination, loading, onPageChange }) => 
                                                     inquiry.status === 'contacted' ? 'Đang tư vấn' : 'Hoàn thành'}
                                             </span>
                                         </td>
-                                        <td className="px-10 py-8">
+                                        <td className="px-4 md:px-10 py-6 md:py-8">
                                             {inquiry.assigned_lawyer ? (
                                                 <div className="flex items-center gap-3">
                                                     <div className="h-8 w-8 rounded-lg bg-slate-100 flex items-center justify-center font-black text-[#041837] text-[10px]">
@@ -102,8 +102,8 @@ const AdminInquiriesTab = ({ inquiries, pagination, loading, onPageChange }) => 
                 </div>
 
                 {pagination.totalPages > 1 && (
-                    <div className="px-10 py-8 border-t border-slate-50 flex items-center justify-between bg-slate-50/30">
-                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Trang {pagination.page} / {pagination.totalPages}</span>
+                    <div className="px-6 md:px-10 py-6 md:py-8 border-t border-slate-50 flex items-center justify-between bg-slate-50/30">
+                        <span className="text-[9px] md:text-[10px] font-black text-slate-400 uppercase tracking-widest">Trang {pagination.page} / {pagination.totalPages}</span>
                         <div className="flex items-center gap-2">
                             <button
                                 onClick={() => onPageChange(pagination.page - 1)}
