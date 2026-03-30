@@ -242,16 +242,16 @@ const CheckoutModal = ({ open, onClose, lawyer, selectedSlot, onConfirm, loading
   return (
     <div className="fixed inset-0 z-[110] flex items-center justify-center bg-[#041837]/80 p-4 backdrop-blur-lg animate-in fade-in duration-300">
       <div className="w-full max-w-2xl overflow-hidden rounded-[48px] bg-white shadow-[0_40px_100px_-20px_rgba(0,0,0,0.5)] border border-slate-100">
-        <div className="bg-[#041837] p-10 text-white relative overflow-hidden">
+        <div className="bg-[#041837] p-6 md:p-10 text-white relative overflow-hidden">
           <div className="absolute -top-10 -right-10 h-40 w-40 bg-amber-500/20 rounded-full blur-3xl" />
           <div className="relative z-10">
-            <p className="text-amber-500 font-black uppercase tracking-[0.4em] text-[10px] mb-2">Thanh toán dịch vụ</p>
-            <h3 className="text-3xl font-black tracking-tight uppercase">Xác nhận đặt lịch tư vấn</h3>
+            <p className="text-amber-500 font-black uppercase tracking-[0.4em] text-[8px] md:text-[10px] mb-2">Thanh toán dịch vụ</p>
+            <h3 className="text-xl md:text-3xl font-black tracking-tight uppercase">Xác nhận đặt lịch</h3>
           </div>
         </div>
 
-        <div className="p-10 space-y-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div className="p-6 md:p-10 space-y-8 md:space-y-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
             <div className="space-y-6">
               <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-widest border-b border-slate-100 pb-4">Chi tiết hóa đơn</h4>
               <div className="space-y-4">
@@ -301,19 +301,19 @@ const CheckoutModal = ({ open, onClose, lawyer, selectedSlot, onConfirm, loading
             </p>
           </div>
 
-          <div className="flex gap-4">
+          <div className="flex flex-col sm:flex-row gap-4">
             <button
               onClick={onClose}
-              className="flex-1 h-16 rounded-[20px] bg-slate-50 text-slate-400 text-[10px] font-black uppercase tracking-widest hover:bg-slate-100 transition-all"
+              className="flex-1 h-12 md:h-16 rounded-2xl md:rounded-[20px] bg-slate-50 text-slate-400 text-[10px] font-black uppercase tracking-widest hover:bg-slate-100 transition-all"
             >
               Hủy bỏ
             </button>
             <button
               onClick={onConfirm}
               disabled={loading}
-              className="flex-[2] h-16 rounded-[20px] bg-[#041837] text-white text-[10px] font-black uppercase tracking-[0.2em] shadow-2xl shadow-blue-900/40 hover:bg-black active:scale-95 disabled:opacity-50 transition-all flex items-center justify-center gap-3"
+              className="flex-[2] h-12 md:h-16 rounded-2xl md:rounded-[20px] bg-[#041837] text-white text-[10px] font-black uppercase tracking-[0.2em] shadow-2xl shadow-blue-900/40 hover:bg-black active:scale-95 disabled:opacity-50 transition-all flex items-center justify-center gap-3"
             >
-              {loading ? 'ĐANG XỬ LÝ...' : `XÁC NHẬN THANH TOÁN • ${Math.round(consultationFee / 1000)}K`}
+              {loading ? 'ĐANG XỬ LÝ...' : `XÁC NHẬN • ${Math.round(consultationFee / 1000)}K`}
               <HiChevronRight className="h-4 w-4 text-amber-500" />
             </button>
           </div>
@@ -559,8 +559,8 @@ const LawyerDetail = () => {
     <div className="bg-[#f8f9fb] min-h-screen pb-24 font-sans animate-in fade-in duration-1000">
       <BannerSection />
 
-      <div className="max-w-7xl mx-auto py-12 px-6 lg:px-10">
-        <button onClick={() => navigate('/lawyer')} className="mb-10 inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 hover:text-amber-600 transition-colors">
+      <div className="max-w-7xl mx-auto py-6 md:py-12 px-4 md:px-6 lg:px-10">
+        <button onClick={() => navigate('/lawyer')} className="mb-6 md:mb-10 inline-flex items-center gap-2 text-[8px] md:text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 hover:text-amber-600 transition-colors">
           <HiChevronLeft className="h-4 w-4" /> QUAY LẠI KHO LUẬT SƯ
         </button>
 
@@ -574,10 +574,10 @@ const LawyerDetail = () => {
                   <HiIdentification className="h-40 w-40 md:h-80 md:w-80 text-white" />
                 </div>
               </div>
-              <div className="px-6 md:px-10 pb-10 md:pb-12 -mt-16 md:-mt-24 relative z-10">
+              <div className="px-4 md:px-10 pb-8 md:pb-12 -mt-16 md:-mt-24 relative z-10">
                 <div className="flex flex-col md:flex-row md:items-end gap-6 md:gap-10">
                   <div className="relative group mx-auto md:mx-0">
-                    <div className="w-40 h-40 md:w-48 md:h-48 rounded-3xl md:rounded-[40px] border-[6px] md:border-[10px] border-white shadow-2xl overflow-hidden bg-slate-100">
+                    <div className="w-32 h-32 md:w-48 md:h-48 rounded-2xl md:rounded-[40px] border-[4px] md:border-[10px] border-white shadow-2xl overflow-hidden bg-slate-100">
                       <img
                         src={resolveAvatarUrl(lawyer.user?.avatar) || `https://ui-avatars.com/api/?name=${encodeURIComponent(lawyer.user?.full_name || 'Lawyer')}&background=random`}
                         alt={lawyer.user?.full_name}
@@ -625,16 +625,16 @@ const LawyerDetail = () => {
                   )}
                 </div>
 
-                <div className="mt-12 flex flex-wrap gap-5 py-8 border-t border-slate-50">
+                <div className="mt-8 md:mt-12 flex flex-col sm:flex-row gap-4 md:gap-5 py-6 md:py-8 border-t border-slate-50">
                   <button
                     onClick={() => { if (!isAuthenticated) { navigate('/login'); return; } setShowChat(true); }}
-                    className="h-16 px-12 rounded-[24px] bg-slate-900 text-white text-xs font-bold uppercase tracking-[0.3em] shadow-2xl shadow-blue-900/30 hover:bg-black active:scale-95 transition-all flex items-center gap-3"
+                    className="h-14 md:h-16 px-6 md:px-12 rounded-2xl md:rounded-[24px] bg-slate-900 text-white text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] shadow-2xl shadow-blue-900/30 hover:bg-black active:scale-95 transition-all flex items-center justify-center gap-3"
                   >
                     <HiTranslate size={20} className="text-amber-500" /> NHẮN TIN TRỰC TIẾP
                   </button>
                   <button
                     onClick={() => setShowCalendar(true)}
-                    className="h-16 px-10 rounded-[24px] border-2 border-slate-100 text-slate-800 text-xs font-bold uppercase tracking-[0.3em] hover:border-amber-500 hover:bg-amber-500 hover:text-white transition-all shadow-sm flex items-center gap-3"
+                    className="h-14 md:h-16 px-6 md:px-10 rounded-2xl md:rounded-[24px] border-2 border-slate-100 text-slate-800 text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] hover:border-amber-500 hover:bg-amber-500 hover:text-white transition-all shadow-sm flex items-center justify-center gap-3"
                   >
                     <HiCalendar size={20} /> LỊCH TRỐNG KHẢ DỤNG
                   </button>
@@ -643,54 +643,54 @@ const LawyerDetail = () => {
             </div>
 
             {/* Profile Tabs/Details */}
-            <div className="bg-white rounded-[48px] border border-slate-100 p-12 shadow-sm space-y-10">
-              <h2 className="text-2xl font-bold text-slate-800 tracking-tight uppercase border-l-4 border-amber-500 pl-6">Thông số định danh nghiệp vụ</h2>
-              <div className="grid sm:grid-cols-2 gap-8 text-slate-800">
-                <div className="rounded-[32px] border-2 border-slate-50 bg-slate-50/30 p-8 shadow-inner group">
-                  <div className="flex items-center gap-4 mb-4">
-                    <HiAcademicCap className="h-6 w-6 text-amber-500" />
-                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest">Kinh nghiệm thực chiến</p>
+            <div className="bg-white rounded-3xl md:rounded-[48px] border border-slate-100 p-6 md:p-12 shadow-sm space-y-8 md:space-y-10">
+              <h2 className="text-xl md:text-2xl font-bold text-slate-800 tracking-tight uppercase border-l-4 border-amber-500 pl-4 md:pl-6">Thông số định danh nghiệp vụ</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-8 text-slate-800">
+                <div className="rounded-[24px] md:rounded-[32px] border-2 border-slate-50 bg-slate-50/30 p-6 md:p-8 shadow-inner group">
+                  <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-4">
+                    <HiAcademicCap className="h-5 w-5 md:h-6 md:w-6 text-amber-500" />
+                    <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest">Kinh nghiệm</p>
                   </div>
-                  <p className="text-3xl font-bold text-slate-800">{lawyer.years_of_experience || 0} <span className="text-sm">NĂM TRONG NGHỀ</span></p>
+                  <p className="text-xl md:text-3xl font-bold text-slate-800">{lawyer.years_of_experience || 0} <span className="text-[10px] md:text-sm">NĂM TRONG NGHỀ</span></p>
                 </div>
-                <div className="rounded-[32px] border-2 border-slate-50 bg-slate-50/30 p-8 shadow-inner">
-                  <div className="flex items-center gap-4 mb-4">
-                    <HiIdentification className="h-6 w-6 text-blue-500" />
-                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest">Số hiệu thẻ Luật sư</p>
+                <div className="rounded-[24px] md:rounded-[32px] border-2 border-slate-50 bg-slate-50/30 p-6 md:p-8 shadow-inner">
+                  <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-4">
+                    <HiIdentification className="h-5 w-5 md:h-6 md:w-6 text-blue-500" />
+                    <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest">Số hiệu thẻ</p>
                   </div>
-                  <p className="text-3xl font-bold text-slate-800">{lawyer.bar_number || 'LS-XXXXX'}</p>
+                  <p className="text-xl md:text-3xl font-bold text-slate-800">{lawyer.bar_number || 'LS-XXXXX'}</p>
                 </div>
-                <div className="rounded-[32px] border-2 border-slate-50 bg-slate-50/30 p-8 shadow-inner">
-                  <div className="flex items-center gap-4 mb-4">
-                    <HiTranslate className="h-6 w-6 text-emerald-500" />
-                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest">Địa bàn hoạt động</p>
+                <div className="rounded-[24px] md:rounded-[32px] border-2 border-slate-50 bg-slate-50/30 p-6 md:p-8 shadow-inner">
+                  <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-4">
+                    <HiTranslate className="h-5 w-5 md:h-6 md:w-6 text-emerald-500" />
+                    <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest">Địa bàn</p>
                   </div>
-                  <p className="text-3xl font-bold text-slate-800 truncate">{lawyer.address || "TOÀN QUỐC"}</p>
+                  <p className="text-xl md:text-3xl font-bold text-slate-800 truncate">{lawyer.address || "TOÀN QUỐC"}</p>
                 </div>
-                <div className="rounded-[32px] border-2 border-slate-50 bg-slate-50/30 p-8 shadow-inner">
-                  <div className="flex items-center gap-4 mb-4">
-                    <HiCurrencyDollar className="h-6 w-6 text-rose-500" />
-                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest">Phí tư vấn cơ sở</p>
+                <div className="rounded-[24px] md:rounded-[32px] border-2 border-slate-50 bg-slate-50/30 p-6 md:p-8 shadow-inner">
+                  <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-4">
+                    <HiCurrencyDollar className="h-5 w-5 md:h-6 md:w-6 text-rose-500" />
+                    <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest">Phí cơ sở</p>
                   </div>
-                  <p className="text-3xl font-bold text-slate-800 text-emerald-600">
-                    {consultationFee ? consultationFee.toLocaleString('vi-VN') + ' đ' : 'THUẬN THẢO'} <span className="text-xs text-slate-400">/ 1 giờ</span>
+                  <p className="text-xl md:text-3xl font-bold text-slate-800 text-emerald-600">
+                    {consultationFee ? consultationFee.toLocaleString('vi-VN') + ' đ' : 'THUẬN THẢO'} <span className="text-[10px]">/ 1 giờ</span>
                   </p>
                 </div>
               </div>
 
               {licenseUrl && (
-                <div className="pt-8 flex justify-center">
-                  <a href={licenseUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.3em] text-white bg-slate-900 px-10 py-5 rounded-2xl shadow-xl shadow-blue-500/10 hover:bg-black transition-all">
-                    <HiShieldCheck size={20} /> KIỂM TRA GIẤY PHÉP HÀNH NGHỀ
+                <div className="pt-4 md:pt-8 flex justify-center">
+                  <a href={licenseUrl} target="_blank" rel="noreferrer" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] text-white bg-slate-900 px-6 md:px-10 py-4 md:py-5 rounded-2xl shadow-xl shadow-blue-500/10 hover:bg-black transition-all">
+                    <HiShieldCheck size={20} /> GIẤY PHÉP HÀNH NGHỀ
                   </a>
                 </div>
               )}
             </div>
 
             {/* Reviews Section */}
-            <div className="bg-white rounded-[48px] border border-slate-100 p-12 shadow-sm space-y-10">
-              <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-bold text-slate-800 tracking-tight uppercase border-l-4 border-amber-500 pl-6">Đánh giá từ khách hàng</h2>
+            <div className="bg-white rounded-3xl md:rounded-[48px] border border-slate-100 p-6 md:p-12 shadow-sm space-y-8 md:space-y-10">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <h2 className="text-xl md:text-2xl font-bold text-slate-800 tracking-tight uppercase border-l-4 border-amber-500 pl-4 md:pl-6">Đánh giá từ khách hàng</h2>
                 <div className="flex items-center gap-2">
                   <span className="text-2xl font-black text-amber-500">{lawyer.rating || '0.0'}</span>
                   <div className="flex items-center text-amber-500">
@@ -705,12 +705,12 @@ const LawyerDetail = () => {
               <div className="space-y-10">
                 {/* Comment Form - "FB style" */}
                 {isAuthenticated && isClient && (
-                  <div className="p-8 rounded-[40px] bg-slate-50 border border-slate-100 shadow-inner">
-                    <div className="flex gap-6">
+                  <div className="p-4 md:p-8 rounded-[32px] md:rounded-[40px] bg-slate-50 border border-slate-100 shadow-inner">
+                    <div className="flex flex-col sm:flex-row gap-4 md:gap-6">
                       <img
                         src={resolveAvatarUrl(user?.avatar)}
                         alt={user?.full_name}
-                        className="h-14 w-14 rounded-2xl object-cover bg-slate-200 border-2 border-white shadow-sm"
+                        className="h-12 w-12 md:h-14 md:w-14 rounded-xl md:rounded-2xl object-cover bg-slate-200 border-2 border-white shadow-sm self-start"
                         onError={(e) => { e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.full_name || 'U')}&background=041837&color=fff`; }}
                       />
                       <div className="flex-1 space-y-4">
@@ -759,29 +759,29 @@ const LawyerDetail = () => {
                 <div className="space-y-8">
                   {lawyer.user?.receivedReviews && lawyer.user.receivedReviews.length > 0 ? (
                     lawyer.user.receivedReviews.map((review) => (
-                      <div key={review.id} className="p-8 rounded-[32px] bg-slate-50/50 border border-slate-100 group transition-all hover:bg-white hover:shadow-xl hover:border-amber-200">
-                        <div className="flex items-center justify-between mb-6">
-                          <div className="flex items-center gap-4">
+                      <div key={review.id} className="p-6 md:p-8 rounded-[24px] md:rounded-[32px] bg-slate-50/50 border border-slate-100 group transition-all hover:bg-white hover:shadow-xl hover:border-amber-200">
+                        <div className="flex items-center justify-between mb-4 md:mb-6">
+                          <div className="flex items-center gap-3 md:gap-4">
                             <img
                               src={resolveAvatarUrl(review.clientUser?.avatar)}
                               alt={review.clientUser?.full_name}
-                              className="h-12 w-12 rounded-2xl object-cover bg-slate-200"
+                              className="h-10 w-10 md:h-12 md:w-12 rounded-xl md:rounded-2xl object-cover bg-slate-200"
                               onError={(e) => { e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(review.clientUser?.full_name || 'C')}&background=041837&color=fff`; }}
                             />
                             <div>
-                              <h4 className="text-sm font-bold text-slate-800 uppercase">{review.clientUser?.full_name}</h4>
-                              <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mt-1">
+                              <h4 className="text-xs md:text-sm font-bold text-slate-800 uppercase">{review.clientUser?.full_name}</h4>
+                              <p className="text-[8px] md:text-[9px] font-black text-slate-400 uppercase tracking-widest mt-1">
                                 {new Date(review.created_at).toLocaleDateString('vi-VN')}
                               </p>
                             </div>
                           </div>
-                          <div className="flex items-center gap-1">
+                          <div className="flex items-center gap-0.5">
                             {Array.from({ length: 5 }).map((_, i) => (
-                              <HiStar key={i} className={`h-4 w-4 ${i < review.rating ? 'text-amber-500' : 'text-slate-200'}`} />
+                              <HiStar key={i} className={`h-3 w-3 md:h-4 md:w-4 ${i < review.rating ? 'text-amber-500' : 'text-slate-200'}`} />
                             ))}
                           </div>
                         </div>
-                        <p className="text-sm font-medium text-slate-600 leading-relaxed italic">
+                        <p className="text-xs md:text-sm font-medium text-slate-600 leading-relaxed italic">
                           "{review.comment}"
                         </p>
                       </div>
@@ -800,12 +800,12 @@ const LawyerDetail = () => {
           </section>
 
           {/* Right Sidebar Booking */}
-          <aside id="booking-section" className="space-y-8">
-            <div className="bg-white rounded-[48px] border border-slate-100 p-8 sticky top-28 shadow-2xl shadow-blue-900/5 overflow-hidden">
+          <aside id="booking-section" className="space-y-6 md:space-y-8">
+            <div className="bg-white rounded-3xl md:rounded-[48px] border border-slate-100 p-6 md:p-8 lg:sticky lg:top-28 shadow-2xl shadow-blue-900/5 overflow-hidden">
               <div className="absolute top-0 right-0 p-8 opacity-[0.03]">
                 <HiVideoCamera size={120} />
               </div>
-              <h3 className="relative z-10 text-2xl font-bold text-slate-800 tracking-tight uppercase mb-8">Video Consultation</h3>
+              <h3 className="relative z-10 text-xl md:text-2xl font-bold text-slate-800 tracking-tight uppercase mb-6 md:mb-8">Video Consultation</h3>
 
               <div className="relative z-10 flex items-center justify-between p-7 rounded-[32px] bg-slate-900 text-white mb-10 shadow-2xl overflow-hidden group/call">
                 <div className="absolute inset-0 bg-gradient-to-r from-amber-500/10 to-transparent translate-x-[-100%] group-hover/call:translate-x-[100%] transition-transform duration-1000" />
@@ -897,28 +897,28 @@ const LawyerDetail = () => {
                   )}
                 </div>
 
-                <button onClick={() => setShowCalendar(true)} className="w-full text-center text-[10px] font-black text-amber-600 uppercase tracking-widest hover:text-amber-700 transition-colors py-4">
+                <button onClick={() => setShowCalendar(true)} className="w-full text-center text-[8px] md:text-[10px] font-black text-amber-600 uppercase tracking-widest hover:text-amber-700 transition-colors py-4">
                   DUYỆT TOÀN BỘ DANH MỤC LỊCH TRỐNG
                 </button>
 
                 <button
                   onClick={purchaseVideoPackage}
                   disabled={buying || !isClient}
-                  className="w-full h-16 rounded-[28px] bg-[#041837] text-white text-[10px] font-black uppercase tracking-[0.3em] shadow-2xl shadow-blue-900/40 hover:bg-black active:scale-95 disabled:opacity-50 transition-all flex items-center justify-center gap-2"
+                  className="w-full h-14 md:h-16 rounded-2xl md:rounded-[28px] bg-[#041837] text-white text-[8px] md:text-[10px] font-black uppercase tracking-[0.3em] shadow-2xl shadow-blue-900/40 hover:bg-black active:scale-95 disabled:opacity-50 transition-all flex items-center justify-center gap-2"
                 >
                   {buying ? 'ĐANG ĐIỀU HƯỚNG...' : `TIẾP TỤC ĐẶT LỊCH • ${Math.round(consultationFee / 1000)}K`}
-                  <HiChevronRight className="h-6 w-6 text-amber-500" />
+                  <HiChevronRight className="h-5 w-5 md:h-6 md:w-6 text-amber-500" />
                 </button>
               </div>
             </div>
 
-            <div className="bg-emerald-600 rounded-[32px] p-8 text-white shadow-xl flex items-center gap-5 group">
-              <div className="h-12 w-12 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-md group-hover:rotate-12 transition-transform">
-                <HiShieldCheck size={28} />
+            <div className="bg-emerald-600 rounded-[24px] md:rounded-[32px] p-6 md:p-8 text-white shadow-xl flex items-center gap-4 md:gap-5 group">
+              <div className="h-10 w-10 md:h-12 md:w-12 bg-white/20 rounded-xl md:rounded-2xl flex items-center justify-center backdrop-blur-md group-hover:rotate-12 transition-transform shrink-0">
+                <HiShieldCheck size={24} className="md:w-7 md:h-7" />
               </div>
               <div>
-                <p className="text-[8px] font-black uppercase tracking-widest text-emerald-100">Cổng thanh toán VietQR</p>
-                <p className="text-xs font-bold">Kích hoạt phiên gọi tự động sau 3.5 giây nhận tiền.</p>
+                <p className="text-[7px] md:text-[8px] font-black uppercase tracking-widest text-emerald-100">Cổng thanh toán VietQR</p>
+                <p className="text-[10px] md:text-xs font-bold leading-tight">Xử lý tự động ngay khi nhận tiền.</p>
               </div>
             </div>
           </aside>

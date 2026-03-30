@@ -8,6 +8,7 @@ import toast from 'react-hot-toast';
 import { useAuth } from '../contexts/AuthContext';
 import { resolveAvatarUrl } from '../utils/avatar';
 import { useVideoCall } from '../contexts/VideoCallContext';
+import { useSocket } from '../contexts/SocketContext';
 
 import ChatBox from '../components/chat/ChatBox';
 import VideoChatTab from '../components/client/VideoChatTab';
@@ -296,12 +297,27 @@ const LawyerDashboard = () => {
     fetchDashboardData(true);
   }, []);
 
+  const socket = useSocket();
+
   useEffect(() => {
     if (activeTab !== 'overview') return undefined;
 
     const interval = setInterval(() => fetchDashboardData(false), 30000);
     return () => clearInterval(interval);
   }, [activeTab]);
+
+  useEffect(() => {
+    if (!socket) return;
+    socket.on('consultation_updated', () => {
+      fetchDashboardData(false);
+      if (activeTab === 'consultations') {
+        fetchConsultations();
+      }
+    });
+    return () => {
+      socket.off('consultation_updated');
+    };
+  }, [socket, activeTab]);
 
   useEffect(() => {
     if (activeTab === 'availability') fetchAvailability();
@@ -958,16 +974,18 @@ const LawyerDashboard = () => {
                         <td className="py-6 pr-4">
                           <div className="flex flex-col gap-2">
                             <span className={`inline-flex w-fit items-center gap-2 rounded-full px-3 py-1 text-[9px] font-black uppercase tracking-wider ${consult.status === 'completed' ? 'bg-emerald-50 text-emerald-600' :
-                              (consult.status === 'confirmed' && new Date(consult.scheduled_at) < new Date()) ? 'bg-red-50 text-red-600 border border-red-200 animate-pulse transition-all' :
-                                consult.status === 'confirmed' ? 'bg-blue-50 text-blue-600' :
-                                  consult.status === 'pending' ? 'bg-amber-50 text-amber-600' : 'bg-slate-50 text-slate-400'
+                              (consult.status === 'in_progress') ? 'bg-emerald-50 text-emerald-600 border border-emerald-200 animate-pulse' :
+                                (consult.status === 'confirmed' && new Date(consult.scheduled_at) < new Date()) ? 'bg-red-50 text-red-600 border border-red-200 animate-pulse transition-all' :
+                                  consult.status === 'confirmed' ? 'bg-blue-50 text-blue-600' :
+                                    consult.status === 'pending' ? 'bg-amber-50 text-amber-600' : 'bg-slate-50 text-slate-400'
                               }`}>
                               <span className="h-1 w-1 rounded-full bg-current" />
                               {consult.status === 'completed' ? 'Hoàn thành' :
-                                (consult.status === 'confirmed' && new Date(consult.scheduled_at) < new Date()) ? 'QUÁ HẠN / TRỄ LỊCH' :
-                                  consult.status === 'confirmed' ? 'Đã xác nhận' :
-                                    consult.status === 'no_show' ? 'KHÔNG ĐẾN / BỊ LỠ' :
-                                      consult.status === 'pending' ? 'Chờ xử lý' : consult.status}
+                                (consult.status === 'in_progress') ? 'LUẬT SƯ ĐÃ THAM GIA' :
+                                  (consult.status === 'confirmed' && new Date(consult.scheduled_at) < new Date()) ? 'QUÁ HẠN / TRỄ LỊCH' :
+                                    consult.status === 'confirmed' ? 'Đã xác nhận' :
+                                      consult.status === 'no_show' ? 'KHÔNG ĐẾN / BỊ LỠ' :
+                                        consult.status === 'pending' ? 'Chờ xử lý' : consult.status}
                             </span>
                             <span className="text-[10px] font-bold text-slate-400 group-hover:text-[#041837] transition-colors">{consult.consultation_type?.toUpperCase()}</span>
                           </div>
@@ -978,11 +996,26 @@ const LawyerDashboard = () => {
                               <p className="text-xs font-black text-[#041837]">{(Number(consult.fee) || 800000).toLocaleString('vi-VN')} đ</p>
                             </div>
                             <button
-                              onClick={() => startCall({
-                                id: consult.client_id,
-                                name: consult.client?.full_name,
-                                caseTitle: 'Tư vấn video trực tuyến'
-                              })}
+                              onClick={async () => {
+                                try {
+                                  // Cập nhật trạng thái lịch tư vấn sang in_progress
+                                  await api.patch(`/lawyer/consultations/${consult.id}/status`, { status: 'in_progress' });
+                                  
+                                  startCall({
+                                    id: consult.client_id,
+                                    name: consult.client?.full_name,
+                                    caseTitle: 'Tư vấn video trực tuyến'
+                                  });
+                                } catch (error) {
+                                  console.error('Failed to update consultation status:', error);
+                                  // Vẫn bắt đầu cuộc gọi kể cả khi lỗi update status 
+                                  startCall({
+                                    id: consult.client_id,
+                                    name: consult.client?.full_name,
+                                    caseTitle: 'Tư vấn video trực tuyến'
+                                  });
+                                }
+                              }}
                               className="rounded-xl bg-[#041837] px-6 py-2.5 text-[10px] font-black uppercase tracking-widest text-white hover:bg-amber-500 hover:text-[#041837] transition-all shadow-md active:scale-95"
                             >
                               Bắt đầu

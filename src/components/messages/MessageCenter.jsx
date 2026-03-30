@@ -293,13 +293,15 @@ const MessageCenter = ({ onRefresh }) => {
                   </p>
                 </div>
               </div>
-              <div className="flex items-center gap-4">
-                <button onClick={handleStartVideoCall} className="flex items-center gap-3 rounded-[20px] bg-[#041837] px-8 py-4 text-[10px] font-black tracking-[0.2em] text-white shadow-2xl transition hover:bg-black active:scale-95 group">
+              <div className="flex items-center gap-2 md:gap-4">
+                <button onClick={handleStartVideoCall} className="flex items-center gap-2 md:gap-3 rounded-xl md:rounded-[20px] bg-[#041837] px-4 md:px-8 py-3 md:py-4 text-[10px] font-black tracking-[0.2em] text-white shadow-2xl transition hover:bg-black active:scale-95 group">
                   <HiOutlineVideoCamera size={18} className="text-amber-500 group-hover:rotate-12 transition-transform" />
-                  GỌI VIDEO
+                  <span className="hidden sm:inline">GỌI VIDEO</span>
                 </button>
-                <div className="h-8 w-px bg-slate-100" />
-                <button className="h-12 w-12 rounded-2xl bg-slate-50 flex items-center justify-center text-slate-300 hover:text-[#041837] transition-colors"><HiDotsVertical size={20} /></button>
+                <div className="hidden sm:block h-8 w-px bg-slate-100" />
+                <button className="h-10 w-10 md:h-12 md:w-12 rounded-xl md:rounded-2xl bg-slate-50 flex items-center justify-center text-slate-300 hover:text-[#041837] transition-colors">
+                  <HiDotsVertical size={20} />
+                </button>
               </div>
             </header>
 
@@ -317,7 +319,7 @@ const MessageCenter = ({ onRefresh }) => {
                           </div>
                         )}
                         <div className={`flex flex-col ${isOwn ? 'items-end' : 'items-start'}`}>
-                          <div className={`rounded-[32px] px-8 py-5 shadow-sm text-sm ${isOwn ? 'bg-amber-500 text-[#041837] font-bold rounded-tr-lg shadow-amber-500/10' : 'bg-white text-slate-700 font-medium border border-slate-50 rounded-tl-lg shadow-slate-200/50'}`}>
+                          <div className={`rounded-2xl md:rounded-[32px] px-4 md:px-8 py-3 md:py-5 shadow-sm text-xs md:text-sm ${isOwn ? 'bg-amber-500 text-[#041837] font-bold rounded-tr-lg shadow-amber-500/10' : 'bg-white text-slate-700 font-medium border border-slate-50 rounded-tl-lg shadow-slate-200/50'}`}>
                             {m.content?.endsWith('.pdf') ? (
                               <div className="flex flex-col gap-5">
                                 <div className="flex items-center gap-5 rounded-[24px] bg-black/5 p-5 border border-black/5">
@@ -363,10 +365,10 @@ const MessageCenter = ({ onRefresh }) => {
                   <HiPaperAirplane size={20} className="rotate-45" />
                 </button>
               </div>
-              <div className="mt-6 flex items-center justify-center gap-6">
-                <p className="text-[9px] font-black text-slate-300 uppercase tracking-[0.2em] italic">Mã hóa đầu cuối TLS 1.3</p>
-                <div className="h-3 w-px bg-slate-100" />
-                <p className="text-[9px] font-black text-slate-300 uppercase tracking-[0.2em] italic">Bảo mật thông tin bởi Hiểu Luật</p>
+              <div className="mt-4 md:mt-6 flex flex-wrap items-center justify-center gap-3 md:gap-6">
+                <p className="text-[8px] md:text-[9px] font-black text-slate-300 uppercase tracking-[0.2em] italic">Mã hóa đầu cuối TLS 1.3</p>
+                <div className="hidden md:block h-3 w-px bg-slate-100" />
+                <p className="text-[8px] md:text-[9px] font-black text-slate-300 uppercase tracking-[0.2em] italic">Bảo mật bởi Hiểu Luật</p>
               </div>
             </footer>
           </>

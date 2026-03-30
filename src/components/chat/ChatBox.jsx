@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import io from 'socket.io-client';
 import {
   HiX,
@@ -178,27 +178,27 @@ const ChatBox = ({ partnerId, partnerName, onClose }) => {
 
   return (
     <div
-      className={`fixed bottom-0 right-8 z-[100] flex flex-col transition-all duration-500 ease-in-out font-sans ${isMinimized
-          ? 'w-72 h-16'
-          : 'w-[400px] h-[600px] shadow-[0_20px_70px_-15px_rgba(0,0,0,0.25)] rounded-t-[32px]'
+      className={`fixed bottom-0 right-0 sm:right-8 z-[100] flex flex-col transition-all duration-500 ease-in-out font-sans ${isMinimized
+          ? 'w-64 sm:w-72 h-14 sm:h-16'
+          : 'w-full sm:w-[400px] h-full sm:h-[600px] shadow-[0_20px_70px_-15px_rgba(0,0,0,0.25)] sm:rounded-t-[32px]'
         }`}
     >
       {/* Header */}
       <div
-        className={`bg-[#041837] text-white p-4 flex justify-between items-center cursor-pointer select-none transition-all duration-500 ${isMinimized ? 'rounded-t-2xl' : 'rounded-t-[32px]'
+        className={`bg-[#041837] text-white p-3 sm:p-4 flex justify-between items-center cursor-pointer select-none transition-all duration-500 ${isMinimized ? 'rounded-t-xl sm:rounded-t-2xl' : 'sm:rounded-t-[32px]'
           }`}
         onClick={() => isMinimized && setIsMinimized(false)}
       >
-        <div className="flex items-center gap-3">
-          <div className="relative h-10 w-10 shrink-0 rounded-[14px] bg-slate-900 border border-white/10 flex items-center justify-center overflow-hidden">
-            <span className="text-xs font-black text-amber-500">{getInitials(partnerName)}</span>
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className="relative h-8 w-8 sm:h-10 sm:w-10 shrink-0 rounded-lg sm:rounded-[14px] bg-slate-900 border border-white/10 flex items-center justify-center overflow-hidden">
+            <span className="text-[10px] sm:text-xs font-black text-amber-500">{getInitials(partnerName)}</span>
             {partnerPresence.isOnline && (
-              <div className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full border-2 border-slate-900 bg-emerald-500 shadow-sm" />
+              <div className="absolute bottom-0 right-0 h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full border-2 border-slate-900 bg-emerald-500 shadow-sm" />
             )}
           </div>
           <div className="flex flex-col">
-            <span className="font-black text-xs tracking-tight uppercase truncate max-w-[150px]">{partnerName}</span>
-            <span className="text-[9px] font-black uppercase tracking-widest text-emerald-400">
+            <span className="font-black text-[10px] sm:text-xs tracking-tight uppercase truncate max-w-[100px] sm:max-w-[150px]">{partnerName}</span>
+            <span className="text-[7px] sm:text-[9px] font-black uppercase tracking-widest text-emerald-400">
               {partnerPresence.isOnline ? 'Trực tuyến' : 'Ngoại tuyến'}
             </span>
           </div>
@@ -248,7 +248,7 @@ const ChatBox = ({ partnerId, partnerName, onClose }) => {
                 <div key={msg.id || `${msg.sender_id}-${msg.created_at}`}
                   className={`flex flex-col ${isOwn ? 'items-end' : 'items-start'} animate-in fade-in slide-in-from-bottom-2`}>
                   <div
-                    className={`max-w-[85%] px-5 py-3.5 shadow-sm text-sm leading-relaxed ${isOwn
+                    className={`max-w-[85%] px-4 sm:px-5 py-2.5 sm:py-3.5 shadow-sm text-xs sm:text-sm leading-relaxed ${isOwn
                       ? 'bg-amber-500 text-[#041837] font-bold rounded-2xl rounded-tr-[4px] shadow-amber-500/10'
                       : 'bg-white border border-slate-50 text-slate-700 font-medium rounded-2xl rounded-tl-[4px] shadow-slate-200/50'
                       }`}
@@ -279,9 +279,9 @@ const ChatBox = ({ partnerId, partnerName, onClose }) => {
 
           {/* Input Area */}
           <div className="p-6 bg-white border-t border-slate-50 rounded-b-none">
-            <div className="flex items-center gap-3 p-2 bg-slate-50 rounded-3xl border-2 border-transparent focus-within:border-amber-500/20 focus-within:bg-white focus-within:ring-8 focus-within:ring-amber-500/5 transition-all transition-shadow">
-              <button className="h-10 w-10 shrink-0 flex items-center justify-center text-slate-300 hover:text-amber-500 transition-colors">
-                <HiOutlinePlusCircle size={24} />
+            <div className="flex items-center gap-2 sm:gap-3 p-1.5 sm:p-2 bg-slate-50 rounded-2xl sm:rounded-3xl border-2 border-transparent focus-within:border-amber-500/20 focus-within:bg-white focus-within:ring-8 focus-within:ring-amber-500/5 transition-all transition-shadow">
+              <button className="h-8 w-8 sm:h-10 sm:w-10 shrink-0 flex items-center justify-center text-slate-300 hover:text-amber-500 transition-colors">
+                <HiOutlinePlusCircle size={20} className="sm:w-6 sm:h-6" />
               </button>
               <input
                 type="text"

@@ -23,7 +23,7 @@ import defaultAvatar from '../../assets/default_lawyer_avatar.png';
 const SummaryCard = ({ consultations }) => {
   const stats = useMemo(() => {
     const total = consultations.length;
-    const completed = consultations.filter(c => c.status === 'completed' || c.status === 'confirmed').length;
+    const completed = consultations.filter(c => ['completed', 'confirmed', 'in_progress'].includes(c.status)).length;
     const pending = consultations.filter(c => c.status === 'pending').length;
     const percent = total > 0 ? (completed / total) * 100 : 0;
     return { total, completed, pending, percent };
@@ -281,19 +281,23 @@ const ConsultationsTab = ({ consultations = [], onBookNew }) => {
                         <span className={`inline-block mt-2 px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest
                           ${consultation.status === 'completed'
                             ? 'bg-blue-50 text-blue-600'
-                            : (consultation.status === 'confirmed' && new Date(consultation.scheduled_at) < new Date())
-                              ? 'bg-red-50 text-red-600 animate-pulse border border-red-200'
-                              : consultation.status === 'confirmed'
-                                ? 'bg-emerald-50 text-emerald-600'
-                                : 'bg-orange-50 text-orange-600'}`}
+                            : consultation.status === 'in_progress'
+                              ? 'bg-emerald-50 text-emerald-600 border border-emerald-200 animate-pulse'
+                              : (consultation.status === 'confirmed' && new Date(consultation.scheduled_at) < new Date())
+                                ? 'bg-red-50 text-red-600 animate-pulse border border-red-200'
+                                : consultation.status === 'confirmed'
+                                  ? 'bg-emerald-50 text-emerald-600'
+                                  : 'bg-orange-50 text-orange-600'}`}
                         >
                           {consultation.status === 'completed'
                             ? 'Hoàn thành'
-                            : (consultation.status === 'confirmed' && new Date(consultation.scheduled_at) < new Date())
-                              ? 'LỊCH ĐÃ BỊ TRỄ'
-                              : consultation.status === 'confirmed'
-                                ? 'Đã xác nhận'
-                                : 'Đang chờ'}
+                            : consultation.status === 'in_progress'
+                              ? 'ĐÃ THAM GIA'
+                              : (consultation.status === 'confirmed' && new Date(consultation.scheduled_at) < new Date())
+                                ? 'LỊCH ĐÃ BỊ TRỄ'
+                                : consultation.status === 'confirmed'
+                                  ? 'Đã xác nhận'
+                                  : 'Đang chờ'}
                         </span>
                         {consultation.status === 'completed' && (
                           <button

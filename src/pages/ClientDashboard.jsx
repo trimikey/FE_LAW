@@ -1,5 +1,6 @@
 import { useAuth } from '../contexts/AuthContext';
 import { useClientDashboard } from '../hooks/useClientDashboard';
+import { useSocket } from '../contexts/SocketContext';
 import OverviewTab from '../components/client/OverviewTab';
 import CasesTab from '../components/client/CasesTab';
 import LawyersTab from '../components/client/LawyersTab';
@@ -34,11 +35,26 @@ const ClientDashboard = () => {
     dashboard.refreshDashboard(false);
   }, [dashboard.refreshDashboard]);
 
+  const socket = useSocket();
+
   useEffect(() => {
     if (dashboard.activeTab === 'lawyers') {
       dashboard.searchLawyers();
     }
   }, [dashboard.activeTab]);
+
+  useEffect(() => {
+    if (!socket) return;
+
+    socket.on('consultation_updated', (data) => {
+      console.log('Consultation updated, refreshing dashboard...', data);
+      dashboard.refreshDashboard(false);
+    });
+
+    return () => {
+      socket.off('consultation_updated');
+    };
+  }, [socket, dashboard.refreshDashboard]);
 
   return (
     <DashboardLayout

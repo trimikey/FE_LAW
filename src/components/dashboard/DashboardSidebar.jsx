@@ -85,12 +85,12 @@ const DashboardSidebar = ({ activeTab, setActiveTab, role, unreadMessagesCount =
                         <div className="h-12 w-12 rounded-2xl bg-white/10 p-2 backdrop-blur hover:bg-white/20 transition-all">
                             <img src={logoImage} alt="Logo" className="h-full w-full object-contain" />
                         </div>
-                        <div>
-                            <div className="flex items-center gap-2">
-                                <span className="h-2 w-2 rounded-full bg-amber-500 shadow-[0_0_12px_rgba(245,179,1,0.6)] animate-pulse"></span>
-                                <span className="text-[9px] font-black uppercase tracking-[0.3em] text-amber-500/90">Hệ thống Hiểu Luật</span>
+                        <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-0.5">
+                                <span className="h-2 w-2 flex-shrink-0 rounded-full bg-amber-500 shadow-[0_0_12px_rgba(245,179,1,0.6)] animate-pulse"></span>
+                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-amber-500/90 whitespace-nowrap">Hệ thống Hiểu Luật</span>
                             </div>
-                            <h2 className="text-base font-black text-white uppercase tracking-wider mt-0.5">Bảng điều khiển</h2>
+                            <h2 className="text-[15px] font-black text-white uppercase tracking-tight whitespace-nowrap leading-none">Bảng điều khiển</h2>
                         </div>
                     </div>
                 </div>
