@@ -104,7 +104,7 @@ const AdminPayoutTab = ({ payouts, loading, fetchPayouts, handleGeneratePayouts,
                                                 <div>
                                                     <p className="text-xs text-[#041837]">{p.lawyer?.full_name}</p>
                                                     <p className="text-[8px] text-slate-400 uppercase tracking-widest">{p.lawyer?.email}</p>
-                                                    {p.lawyer?.lawyer?.bank_account_number && (
+                                                    {p.lawyer?.lawyer?.bank_account_number ? (
                                                         <div className="mt-1 flex flex-col gap-0.5 border-t border-slate-50 pt-1 pointer-events-auto">
                                                             <p className="text-[7.5px] font-black text-amber-600 uppercase tracking-tighter">
                                                                 {p.lawyer.lawyer.bank_name}
@@ -122,6 +122,10 @@ const AdminPayoutTab = ({ payouts, loading, fetchPayouts, handleGeneratePayouts,
                                                             <p className="text-[8px] text-slate-400 italic">
                                                                 {p.lawyer.lawyer.bank_account_name}
                                                             </p>
+                                                        </div>
+                                                    ) : (
+                                                        <div className="mt-1 flex flex-col gap-0.5 border-t border-slate-50 pt-1">
+                                                            <p className="text-[8px] font-black text-rose-500 uppercase tracking-widest italic animate-pulse">Chưa cập nhật NH</p>
                                                         </div>
                                                     )}
                                                 </div>
@@ -278,8 +282,23 @@ const AdminPayoutTab = ({ payouts, loading, fetchPayouts, handleGeneratePayouts,
 
                             <div className="bg-slate-50 p-4 rounded-3xl border-2 border-slate-100 aspect-square flex items-center justify-center overflow-hidden">
                                 {(() => {
-                                    const bin = BANK_BIN_MAPPING[qrModal.lawyer?.lawyer?.bank_name] || '970422'; // Default to MB if not found
-                                    const acc = qrModal.lawyer?.lawyer?.bank_account_number || '';
+                                    const acc = qrModal.lawyer?.lawyer?.bank_account_number;
+                                    const bank = qrModal.lawyer?.lawyer?.bank_name;
+
+                                    if (!acc || !bank) {
+                                        return (
+                                            <div className="text-center p-6 space-y-4">
+                                                <div className="mx-auto w-12 h-12 bg-rose-50 rounded-full flex items-center justify-center text-rose-500">
+                                                    <HiX size={24} />
+                                                </div>
+                                                <p className="text-xs font-bold text-rose-600 uppercase tracking-widest leading-relaxed">
+                                                    Luật sư chưa cập nhật<br />thông tin ngân hàng
+                                                </p>
+                                            </div>
+                                        );
+                                    }
+
+                                    const bin = BANK_BIN_MAPPING[bank] || '970422'; // Default to MB if not found
                                     const amount = Math.round(Number(qrModal.lawyer_earning) + Number(qrModal.bonus_amount));
                                     const info = encodeURIComponent(`Quyet toan ${qrModal.month} LS ${qrModal.lawyer?.full_name}`);
                                     const name = encodeURIComponent(qrModal.lawyer?.lawyer?.bank_account_name || '');
