@@ -131,6 +131,20 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
+  const resendVerification = async (email) => {
+    try {
+      const response = await api.post('/auth/resend-verification', { email })
+      if (response.data.success) {
+        toast.success(response.data.message)
+        return { success: true, message: response.data.message }
+      }
+    } catch (error) {
+      const message = error.response?.data?.message || 'Gửi lại email xác thực thất bại'
+      toast.error(message)
+      return { success: false, message }
+    }
+  }
+
   const value = {
     user,
     token,
@@ -140,6 +154,7 @@ export const AuthProvider = ({ children }) => {
     logout,
     forgotPassword,
     resetPassword,
+    resendVerification,
     isAuthenticated: !!token && !!user
   }
 

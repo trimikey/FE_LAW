@@ -13,7 +13,9 @@ const Login = () => {
     password: ''
   });
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const [needsVerification, setNeedsVerification] = useState(false);
+  const [resending, setResending] = useState(false);
+  const { login, resendVerification } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -26,14 +28,25 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setNeedsVerification(false);
 
     const result = await login(formData.email, formData.password);
 
     if (result.success) {
       navigate('/dashboard');
+    } else if ((result.message || '').toLowerCase().includes('xác thực email')) {
+      setNeedsVerification(true);
     }
 
     setLoading(false);
+  };
+
+  const handleResendVerification = async () => {
+    if (!formData.email || resending) return;
+
+    setResending(true);
+    await resendVerification(formData.email);
+    setResending(false);
   };
 
   return (
@@ -105,6 +118,24 @@ const Login = () => {
                 {loading ? 'Đang xác thực...' : 'Đăng nhập ngay'}
                 {!loading && <HiArrowRight className="h-4 w-4" />}
               </button>
+              {needsVerification && (
+                <div className="rounded-[24px] border border-amber-200 bg-amber-50 px-5 py-4 text-left">
+                  <p className="text-[11px] font-black uppercase tracking-[0.16em] text-amber-700">
+                    Tài khoản chưa xác thực email
+                  </p>
+                  <p className="mt-2 text-sm font-bold text-slate-600">
+                    Nếu bạn chưa nhận được mail hoặc link cũ đã hết hạn, gửi lại email xác thực cho địa chỉ này.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={handleResendVerification}
+                    disabled={resending || !formData.email}
+                    className="mt-4 inline-flex items-center justify-center rounded-full bg-amber-500 px-5 py-3 text-[10px] font-black uppercase tracking-[0.18em] text-[#041837] transition hover:bg-amber-400 disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    {resending ? 'Đang gửi lại...' : 'Gửi lại email xác thực'}
+                  </button>
+                </div>
+              )}
             </form>
 
             <div className="mt-12 text-center">
