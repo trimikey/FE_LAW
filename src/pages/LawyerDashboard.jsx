@@ -1589,6 +1589,7 @@ const LawyerDashboard = () => {
             <ClientDossiersTab
               onAddClient={() => setIsCreateClientOpen(true)}
               refreshKey={refreshKey}
+              onRefresh={() => setRefreshKey(prev => prev + 1)}
             />
           )}
 
