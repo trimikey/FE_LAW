@@ -181,6 +181,10 @@ const HomeNavbar = ({ scrolled, isDashboard }) => {
             </Link>
             <Link to="/about" className="transition-colors hover:text-amber-100">Về chúng tôi</Link>
             <Link to="/lawyer" className="transition-colors hover:text-amber-100">Tiện ích</Link>
+            <Link to="/ai-consultant" className="relative group text-indigo-900 bg-white/20 px-3 py-1 rounded-lg hover:bg-white/40 transition-all border border-white/30 shadow-sm flex items-center gap-1.5">
+              <span className="h-1.5 w-1.5 rounded-full bg-indigo-500 animate-pulse"></span>
+              Tư vấn AI
+            </Link>
 
             {isLawyer && (
               <div className="relative flex h-full items-center" onMouseEnter={() => setShowLawyerDropdown(true)} onMouseLeave={() => setShowLawyerDropdown(false)}>
@@ -324,6 +328,7 @@ const HomeNavbar = ({ scrolled, isDashboard }) => {
                 <Link to="/" onClick={() => setIsMenuOpen(false)} className="hover:text-[#f1b136] flex items-center gap-2"><MdHome size={18} /> Trang chủ</Link>
                 <Link to="/about" onClick={() => setIsMenuOpen(false)} className="hover:text-[#f1b136]">Về chúng tôi</Link>
                 <Link to="/lawyer" onClick={() => setIsMenuOpen(false)} className="hover:text-[#f1b136]">Tiện ích tìm kiếm</Link>
+                <Link to="/ai-consultant" onClick={() => setIsMenuOpen(false)} className="text-indigo-600 font-black">✨ Tư vấn AI (Mới)</Link>
                 <Link to="/contact" onClick={() => setIsMenuOpen(false)} className="hover:text-[#f1b136]">Liên hệ</Link>
 
                 {isLawyer && (

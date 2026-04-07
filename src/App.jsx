@@ -1,4 +1,4 @@
-﻿import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { Toaster, toast } from 'react-hot-toast'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
 import { useEffect } from 'react'
@@ -23,6 +23,7 @@ import PayOSReturn from './pages/PayOSReturn'
 import LawyerProfilePage from './pages/LawyerProfilePage'
 import CaseDetail from './pages/CaseDetail'
 import LawyerCaseDetail from './pages/LawyerCaseDetail'
+import AIConsultant from './pages/AIConsultant'
 
 import { SocketProvider } from './contexts/SocketContext'
 import { VideoCallProvider } from './contexts/VideoCallContext'
@@ -102,6 +103,7 @@ const App = () => {
                 <Route path="/about" element={<HomeLayout><About /></HomeLayout>} />
                 <Route path="/news" element={<HomeLayout><News /></HomeLayout>} />
                 <Route path="/contact" element={<HomeLayout><Contact /></HomeLayout>} />
+                <Route path="/ai-consultant" element={<HomeLayout><AIConsultant /></HomeLayout>} />
                 <Route path="/verify-email" element={<HomeLayout><VerifyEmail /></HomeLayout>} />
                 <Route path="/payment/payos-return" element={<HomeLayout><PayOSReturn /></HomeLayout>} />
                 <Route path="/login" element={<HomeLayout><Login /></HomeLayout>} />
